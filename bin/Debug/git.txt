@@ -1,0 +1,27 @@
+1) Generate ssh keys
+admin@HTCTEST ~
+$ ssh-keygen -t rsa -C "xxxx@beyondsoft.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/admin/.ssh/id_rsa): rsa
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in rsa.
+Your public key has been saved in rsa.pub.
+The key fingerprint is:
+7f:52:af:16:c5:be:6c:b8:df:9c:90:34:2c:a5:cd:2f xxxx@beyondsoft.com
+ 
+2) go to C:\Users\admin\.ssh, open id_rsa.pub to copy the PUB RSA string (ensure the ssh key file name as id_rsa and id_rsa.pub strictly)
+ 
+3) paste the pub string to Github
+ 
+4) admin@HTCTEST /d/myGit
+$ git clone git@github.com:fisher2034/gHelloAndroidWorld.git HAWorld
+Cloning into 'HAWorld'...
+Enter passphrase for key '/c/Users/admin/.ssh/id_rsa':
+remote: Counting objects: 54, done.
+remote: Compressing objects: 100% (32/32), done.
+remote: Total 54 (delta 9), reused 50 (delta 5)Receiving objects:  44% (24/54)
+Receiving objects: 100% (54/54), 27.19 KiB, done.
+Resolving deltas: 100% (9/9), done.
+ 
+ 
