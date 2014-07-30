@@ -570,9 +570,11 @@ void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int des
             if (matrix_row[i] == 1) {
                   if (src_ids == NULL) {
                     sptr = data_ptrs[i];
-                  } else if (src_ids[i] < k) {
+                  }
+                  else if (src_ids[i] < k) {
                     sptr = data_ptrs[src_ids[i]];
-                  } else {
+                  }
+                  else {
                     sptr = coding_ptrs[src_ids[i]-k];
                   }
 
@@ -592,9 +594,11 @@ void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int des
             if (matrix_row[i] != 0 && matrix_row[i] != 1) {
                   if (src_ids == NULL) {
                     sptr = data_ptrs[i];
-                  } else if (src_ids[i] < k) {
+                  }
+                  else if (src_ids[i] < k) {
                     sptr = data_ptrs[src_ids[i]];
-                  } else {
+                  }
+                  else {
                     sptr = coding_ptrs[src_ids[i]-k];
                   }
 

@@ -1,32 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="jerasure/galois.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="jerasure/galois.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="20088" topLine="725" />
+			<Cursor1 position="19792" topLine="728" />
 		</Cursor>
 	</File>
-	<File name="jerasure/van_decoder.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="jerasure/jerasure.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4779" topLine="78" />
-		</Cursor>
-		<Folding>
-			<Collapse line="0" />
-			<Collapse line="27" />
-			<Collapse line="77" />
-			<Collapse line="149" />
-			<Collapse line="183" />
-			<Collapse line="192" />
-			<Collapse line="216" />
-			<Collapse line="231" />
-			<Collapse line="234" />
-			<Collapse line="237" />
-			<Collapse line="244" />
-		</Folding>
-	</File>
-	<File name="jerasure/jerasure.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="16342" topLine="434" />
+			<Cursor1 position="16115" topLine="516" />
 		</Cursor>
 		<Folding>
 			<Collapse line="0" />
@@ -35,23 +17,42 @@
 			<Collapse line="52" />
 			<Collapse line="60" />
 			<Collapse line="61" />
-			<Collapse line="70" />
-			<Collapse line="73" />
-			<Collapse line="75" />
-			<Collapse line="84" />
-			<Collapse line="88" />
-			<Collapse line="89" />
-			<Collapse line="97" />
-			<Collapse line="98" />
-			<Collapse line="102" />
-			<Collapse line="115" />
-			<Collapse line="120" />
-			<Collapse line="121" />
-			<Collapse line="129" />
-			<Collapse line="130" />
-			<Collapse line="134" />
-			<Collapse line="141" />
-			<Collapse line="174" />
+		</Folding>
+	</File>
+	<File name="jerasure/van_decoder.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7593" topLine="33" />
+		</Cursor>
+		<Folding>
+			<Collapse line="0" />
+			<Collapse line="27" />
+			<Collapse line="77" />
+			<Collapse line="150" />
+			<Collapse line="151" />
+			<Collapse line="154" />
+			<Collapse line="171" />
+			<Collapse line="176" />
+			<Collapse line="177" />
+			<Collapse line="189" />
+			<Collapse line="202" />
+			<Collapse line="206" />
+			<Collapse line="209" />
+			<Collapse line="214" />
+			<Collapse line="215" />
+			<Collapse line="221" />
+			<Collapse line="230" />
+			<Collapse line="231" />
+			<Collapse line="232" />
+			<Collapse line="235" />
+			<Collapse line="245" />
+			<Collapse line="248" />
+			<Collapse line="251" />
+			<Collapse line="258" />
+			<Collapse line="264" />
+			<Collapse line="271" />
+			<Collapse line="274" />
+			<Collapse line="279" />
+			<Collapse line="318" />
 		</Folding>
 	</File>
 </CodeBlocks_layout_file>

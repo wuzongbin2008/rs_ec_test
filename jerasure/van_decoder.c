@@ -282,8 +282,10 @@ int main (int argc, char **argv) {
             total+= blocksize;
             printf("total = %d\n",total);
         }
+
 		n++;
 		fclose(fp);
+
 		tsec = 0.0;
 		tsec += t4.tv_usec;
 		tsec -= t3.tv_usec;

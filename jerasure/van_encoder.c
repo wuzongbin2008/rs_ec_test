@@ -313,29 +313,14 @@ int main (int argc, char **argv) {
 		readins = 1;
 		buffersize = size;
 		block = (char *)malloc(sizeof(char)*newsize);
-		//test
-		//blocksize = size;
 	}
 
 	/* Break inputfile name into the filename and extension */
 	s1 = (char*)malloc(sizeof(char)*(strlen(argv[1])+10));
-	s2 = strrchr(argv[1], '/');
-	if (s2 != NULL) {
-		s2++;
-		strcpy(s1, s2);
-	}
-	else {
-		strcpy(s1, argv[1]);
-	}
-	s2 = strchr(s1, '.');
-	if (s2 != NULL) {
-		*s2 = '\0';
-	}
+    strcpy(s1, argv[1]);
 	fname = strchr(argv[1], '.');
 	s2 = (char*)malloc(sizeof(char)*(strlen(argv[1])+5));
-	if (fname != NULL) {
-		strcpy(s2, fname);
-	}
+    strcpy(s2, fname);
 
 	/* Allocate for full file name */
 	fname = (char*)malloc(sizeof(char)*(strlen(argv[1])+strlen(curdir)+10));
@@ -414,8 +399,8 @@ int main (int argc, char **argv) {
             if (fp == NULL) {
                 bzero(data[i-1], blocksize);
             } else {
-                //sprintf(fname, "%s/Coding/%s_m%0*d%s", curdir, s1, md, i, s2);
-                sprintf(fname, "%s/Coding/m%0*d%s", curdir, md,i, s2);
+                sprintf(fname, "%s/Coding/%s_m%0*d%s", curdir, s1, md, i, s2);
+                //sprintf(fname, "%s/Coding/m%0*d%s", curdir, md,i, s2);
                 if ((ret = access(fname, R_OK|W_OK)) == 0){
                     fp2 = fopen(fname, "ab");
                 }
