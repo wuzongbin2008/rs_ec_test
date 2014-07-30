@@ -244,16 +244,15 @@ int main (int argc, char **argv) {
 		}
 
 		/* Finish allocating data/coding if needed */
-		//if (n == 1) {
-			for (i = 0; i < numerased; i++) {
-				if (erasures[i] < k) {
-					data[erasures[i]] = (char *)malloc(sizeof(char)*blocksize);
-				}
-				else {
-					coding[erasures[i]-k] = (char *)malloc(sizeof(char)*blocksize);
-				}
-			}
-		//}
+        for (i = 0; i < numerased; i++) {
+            if (erasures[i] < k) {
+                data[erasures[i]] = (char *)malloc(sizeof(char)*blocksize);
+            }
+            else {
+                coding[erasures[i]-k] = (char *)malloc(sizeof(char)*blocksize);
+            }
+        }
+
 
 		erasures[numerased] = -1;
 		gettimeofday(&t3, &tz);
@@ -284,20 +283,20 @@ int main (int argc, char **argv) {
 
         /* Write decoded data to file */
         sprintf(fname, "%s/Coding/%d_decoded%s", curdir, n, cs2);
-        //fp = fopen(fname, "wb");
-        if (n == 1) {
-			fp = fopen(fname, "wb");
-		}
-		else {
-			fp = fopen(fname, "ab");
-		}
+        fp = fopen(fname, "wb");
+//        if (n == 1) {
+//			fp = fopen(fname, "wb");
+//		}
+//		else {
+//			fp = fopen(fname, "ab");
+//		}
         printf("data[%d] = %s\n",n-1,data[n-1]);
         int cnt ;
-        for (i = 0; i < 2; i++) {
-            cnt = fwrite(data[i], sizeof(char), blocksize, fp);
-            total+= blocksize;
-            printf("total = %d\n",total);
-        }
+        //for (i = 0; i < 2; i++) {
+            cnt = fwrite(data[n-1], sizeof(char), strlen(data[n-1]), fp);
+            total+= strlen(data[n-1]);
+            printf("data[%d]=%d\ntotal = %d\n",n,strlen(data[n-1]),total);
+        //}
 
 		n++;
 		fclose(fp);
