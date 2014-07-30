@@ -6,6 +6,7 @@ RS Coding:
 "reed_sol_van":
         ./encoder 1.txt 10 3 reed_sol_van 8 2 1
 	./van_encoder 1.pdf 10 3 reed_sol_van 8 1 911783
+	./van_encoder 1.txt 10 3 reed_sol_van 8 1 11
 	Time taken to encode file  total size 208621663 is 13.8440492153
 	Encoding (MB/sec): 14.3021739464
 	En_Total (MB/sec): 1.1179648319
@@ -16,7 +17,7 @@ RS Coding:
 	De_Total (MB/sec): 2.4080115862
 
 	matrix:
-                       m = rows                 k = cols
+                       m = rows = 9                k = cols = 9
 	1	1	1	1	1	1	1	1	1	
 	1	136	161	63	125	156	92	171	211	
 	1	138	96	161	238	67	88	220	233	
