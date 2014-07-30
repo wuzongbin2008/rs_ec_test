@@ -64,3 +64,20 @@
 	"cauchy.h"
 	"liberation.h"
 
+1403504698 source:/project/c/rs_ec_test/jerasure/cauchy.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"galois.h"
+	"jerasure.h"
+	"cauchy.h"
+
+1403504698 /project/c/rs_ec_test/jerasure/galois.h
+	<stdio.h>
+	<stdlib.h>
+
+1406165659 /project/c/rs_ec_test/jerasure/jerasure.h
+	"galois.h"
+
+1403504698 /project/c/rs_ec_test/jerasure/cauchy.h
+

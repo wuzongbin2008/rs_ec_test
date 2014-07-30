@@ -313,11 +313,16 @@ int main (int argc, char **argv) {
 		readins = 1;
 		buffersize = size;
 		block = (char *)malloc(sizeof(char)*newsize);
+		blocksize = newsize;
 	}
 
 	/* Break inputfile name into the filename and extension */
 	s1 = (char*)malloc(sizeof(char)*(strlen(argv[1])+10));
     strcpy(s1, argv[1]);
+    s2 = strchr(s1, '.');
+	if (s2 != NULL) {
+		*s2 = '\0';
+	}
 	fname = strchr(argv[1], '.');
 	s2 = (char*)malloc(sizeof(char)*(strlen(argv[1])+5));
     strcpy(s2, fname);
@@ -331,7 +336,7 @@ int main (int argc, char **argv) {
 	data = (char **)malloc(sizeof(char*)*k);
 	coding = (char **)malloc(sizeof(char*)*m);
 	for (i = 0; i < m; i++) {
-		coding[i] = (char *)malloc(sizeof(char)*blocksize);
+		coding[i] = (char *)malloc(sizeof(char)*buffersize);
 	}
 
 	/* Create coding matrix or bitmatrix and schedule */
@@ -350,31 +355,31 @@ int main (int argc, char **argv) {
 	n = 1;
 	total = 0;
 
-    /* Check if padding is needed, if so, add appropriate number of zeros */
-    if (total < size && total+buffersize <= size) {
-        total += jfread(block, sizeof(char), buffersize, fp);
-    }
-    else if (total < size && total+buffersize > size) {
-        extra = jfread(block, sizeof(char), buffersize, fp);
-        for (i = extra; i < buffersize; i++) {
-            block[i] = '0';
-        }
-    }
-    else if (total == size) {
-        for (i = 0; i < buffersize; i++) {
-            block[i] = '0';
-        }
-    }
-
     /* Start encoding */
 	while (n <= readins) {
+        /* Check if padding is needed, if so, add appropriate number of zeros */
+        if (total < size && total+buffersize <= size) {
+            total += jfread(block, sizeof(char), buffersize, fp);
+        }
+        else if (total < size && total+buffersize > size) {
+            extra = jfread(block, sizeof(char), buffersize, fp);
+            for (i = extra; i < buffersize; i++) {
+                block[i] = '0';
+            }
+        }
+        else if (total == size) {
+            for (i = 0; i < buffersize; i++) {
+                block[i] = '0';
+            }
+        }
+
         /* Set pointers to point to file data */
         int file_no = atoi(s1);
         for (i = 0; i < k; i++) {
             if(i== (file_no - 1)){
                 data[file_no - 1] = block;
             }else{
-                data[i] = (char *)calloc(buffersize,sizeof(char));
+                data[i] = (char *)calloc(blocksize,sizeof(char));
             }
         }
         gettimeofday(&t3, &tz);
@@ -399,8 +404,8 @@ int main (int argc, char **argv) {
             if (fp == NULL) {
                 bzero(data[i-1], blocksize);
             } else {
-                sprintf(fname, "%s/Coding/%s_m%0*d%s", curdir, s1, md, i, s2);
-                //sprintf(fname, "%s/Coding/m%0*d%s", curdir, md,i, s2);
+                //sprintf(fname, "%s/Coding/%s_m%0*d%s", curdir, s1, md, i, s2);
+                sprintf(fname, "%s/Coding/m%0*d%s", curdir, md,i, s2);
                 if ((ret = access(fname, R_OK|W_OK)) == 0){
                     fp2 = fopen(fname, "ab");
                 }
@@ -423,10 +428,11 @@ int main (int argc, char **argv) {
 
         /* Create metadata file */
         fname = (char*)malloc(sizeof(char)*(strlen(s1)+strlen(curdir)+18));
-        sprintf(fname, "%s/Coding/%d_meta.txt", curdir, n);
+        sprintf(fname, "%s/Coding/%d_meta.txt", curdir, file_no);
         fp2 = fopen(fname, "wb");
         fprintf(fp2, "%s\n", argv[1]);
         fprintf(fp2, "%d\n", size);
+        fprintf(fp2, "%d\n", newsize);
         fprintf(fp2, "%d %d %d %d %d\n", k, m, w, packetsize, buffersize);
         fprintf(fp2, "%s\n", argv[4]);
         fprintf(fp2, "%d\n", tech);

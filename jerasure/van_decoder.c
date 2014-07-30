@@ -89,7 +89,7 @@ int main (int argc, char **argv) {
 
 	int i, j;				// loop control variables
 	int blocksize;			// size of individual files
-	int origsize;			// size of file before padding
+	int origsize,newsize;			// size of file before padding
 	int total;				// used to write data, not padding to file
 	struct stat status;		// used to find size of individual files
 	int numerased;			// number of erased files
@@ -120,26 +120,52 @@ int main (int argc, char **argv) {
 	/* Error checking parameters */
 	curdir = (char *)malloc(sizeof(char)*100);
 	//getcwd(curdir, 100);
-	curdir = "/project/c/imgbedectest/1/bin/Debug";
+	curdir = "/project/c/rs_ec_test/bin/Debug";
 
 	/* Begin recreation of file names */
-	int fname_cnt = 5;
-	cs1 = (char*)malloc(sizeof(char)*fname_cnt);
-	cs2 = (char*)malloc(sizeof(char)*fname_cnt);
-	fname = (char *)malloc(sizeof(char*)*(100+fname_cnt+10));
-	temp = (char *)malloc(sizeof(char)*fname_cnt+10);
+	cs1 = (char*)malloc(sizeof(char)*strlen(argv[1]));
+	cs2 = strrchr(argv[1], '/');
+	if (cs2 != NULL) {
+		cs2++;
+		strcpy(cs1, cs2);
+	}
+	else {
+		strcpy(cs1, argv[1]);
+	}
+	cs2 = strchr(cs1, '.');
+	if (cs2 != NULL) {
+		*cs2 = '\0';
+	}
+	cs2 = (char*)malloc(sizeof(char)*strlen(argv[1]));
+	fname = strchr(argv[1], '.');
+	strcpy(cs2, fname);
+	fname = (char *)malloc(sizeof(char*)*(100+strlen(argv[1])+10));
 
 	/* Read in parameters from metadata file */
-    k = 10;
-    m = 3;
-    w = 8;
-    cs2 = ".txt";
-    origsize = 11;
-    packetsize = 1;
-	buffersize = 11;
-    blocksize = 32;
-	tech = Reed_Sol_Van;
-	int ori_file_total = blocksize * k;
+	sprintf(fname, "%s/Coding/%s_meta.txt", curdir, cs1);
+
+	fp = fopen(fname, "rb");
+	temp = (char *)malloc(sizeof(char)*(strlen(argv[1])+10));
+	fscanf(fp, "%s", temp);
+
+	if (fscanf(fp, "%d", &origsize) != 1) {
+		fprintf(stderr, "Original size is not valid\n");
+		exit(0);
+	}
+    if (fscanf(fp, "%d", &newsize) != 1) {
+		fprintf(stderr, "New size is not valid\n");
+		exit(0);
+	}
+	if (fscanf(fp, "%d %d %d %d %d", &k, &m, &w, &packetsize, &buffersize) != 5) {
+		fprintf(stderr, "Parameters are not correct\n");
+		exit(0);
+	}
+	c_tech = (char *)malloc(sizeof(char)*(strlen(argv[1])+10));
+	fscanf(fp, "%s", c_tech);
+	fscanf(fp, "%d", &tech);
+	method = tech;
+	fscanf(fp, "%d", &readins);
+	fclose(fp);
 
 	/* Allocate memory */
 	erased = (int *)malloc(sizeof(int)*(k+m));
@@ -169,6 +195,9 @@ int main (int argc, char **argv) {
 
     /* Start decoding */
     readins = origsize/buffersize;
+    if (buffersize == origsize) {
+        blocksize = newsize;
+    }
     while (n <= 2) {
 
 		numerased = 0;
@@ -176,6 +205,11 @@ int main (int argc, char **argv) {
 		/* Open files, check for erasures, read in data/coding */
 		for (i = 1; i <= k; i++) {
             if(n == 1 && i == 1){
+                erased[i-1] = 1;
+				erasures[numerased] = i-1;
+				numerased++;
+            }
+            else if(n == 2 && i == 2){
                 erased[i-1] = 1;
 				erasures[numerased] = i-1;
 				numerased++;
@@ -187,20 +221,8 @@ int main (int argc, char **argv) {
 //                data[i-1] = (char *)malloc(sizeof(char)*blocksize);
 //                fread(data[i-1], sizeof(char), blocksize, fp);
             }
-            else if(n == 2 && i == 2){
-                sprintf(fname, "%s/Coding/k%0*d%s", curdir,md, i, cs2);
-                fp = fopen(fname, "rb");
-                stat(fname, &status);
-                //blocksize = status.st_size;
-                data[i-1] = (char *)malloc(sizeof(char)*blocksize);
-                fread(data[i-1], sizeof(char), blocksize, fp);
-            }
-//            else if (i<=2){
-//				erased[i-1] = 1;
-//				erasures[numerased] = i-1;
-//				numerased++;
-//			}
 			else {
+                //blocksize = 912000;
                 data[i-1] = (char *)calloc(blocksize,sizeof(char));
 			}
 		}
@@ -213,22 +235,16 @@ int main (int argc, char **argv) {
 				numerased++;
 			}
 			else {
-				if (buffersize == origsize) {
-					stat(fname, &status);
-					//blocksize = status.st_size;
-					coding[i-1] = (char *)malloc(sizeof(char)*blocksize);
-					fread(coding[i-1], sizeof(char), blocksize, fp);
-				}
-				else {
+                    coding[i-1] = (char *)malloc(sizeof(char)*blocksize);
 					fseek(fp, blocksize*(n-1), SEEK_SET);
 					fread(coding[i-1], sizeof(char), blocksize, fp);
-				}
+
 				fclose(fp);
 			}
 		}
 
 		/* Finish allocating data/coding if needed */
-		if (n == 1) {
+		//if (n == 1) {
 			for (i = 0; i < numerased; i++) {
 				if (erasures[i] < k) {
 					data[erasures[i]] = (char *)malloc(sizeof(char)*blocksize);
@@ -237,7 +253,7 @@ int main (int argc, char **argv) {
 					coding[erasures[i]-k] = (char *)malloc(sizeof(char)*blocksize);
 				}
 			}
-		}
+		//}
 
 		erasures[numerased] = -1;
 		gettimeofday(&t3, &tz);
@@ -262,12 +278,12 @@ int main (int argc, char **argv) {
 		}
 
 		/* Create decoded file */
-		for(i=0;i<k;i++){
-            printf("n = %d\ndata[%d] = %s\nlen = %d\n\n",n,i,data[i],strlen(data[i]));
-		}
+//		for(i=0;i<k;i++){
+//            printf("n = %d\ndata[%d] = %s\nlen = %d\n\n",n,i,data[i],strlen(data[i]));
+//		}
 
         /* Write decoded data to file */
-        sprintf(fname, "%s/Coding/%d_decoded%s", curdir, 1, cs2);
+        sprintf(fname, "%s/Coding/%d_decoded%s", curdir, n, cs2);
         //fp = fopen(fname, "wb");
         if (n == 1) {
 			fp = fopen(fname, "wb");
