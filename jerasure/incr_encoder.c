@@ -87,7 +87,7 @@ int main (int argc, char **argv) {
 	FILE *fp, *fp2;				// file pointers
 	char *memblock;		// reading in file
 	char *block;				// padding file
-	int size, newsize;			// size of file and temp size
+	int size, newsize,mf_size,r_count;			// size of file and temp size
 	struct stat status;			// finding file size
 
 	enum Coding_Technique tech;		// coding technique (parameter)
@@ -313,8 +313,7 @@ int main (int argc, char **argv) {
 		readins = 1;
 		buffersize = size;
 		block = (char *)malloc(sizeof(char)*newsize);
-		//test
-		//blocksize = size;
+		blocksize = newsize;
 	}
 
 	/* Break inputfile name into the filename and extension */
@@ -346,7 +345,31 @@ int main (int argc, char **argv) {
 	data = (char **)malloc(sizeof(char*)*k);
 	coding = (char **)malloc(sizeof(char*)*m);
 	for (i = 0; i < m; i++) {
-		coding[i] = (char *)malloc(sizeof(char)*blocksize);
+        sprintf(fname, "%s/Coding/m%0*d%s", curdir,md, (i+1), s2);
+
+        if ((ret = access(fname, R_OK|W_OK)) == 0){
+            fp = fopen(fname, "rb");
+            if (fp == NULL) {
+                fprintf(stderr,  "Invalid file for m%d\n",i);
+                exit(0);
+            }
+            else {
+                /* Determine original size of file */
+                stat(fname, &status);
+                mf_size = status.st_size;
+                coding[i] = (char *)malloc(sizeof(char)*(mf_size+blocksize));
+                r_count = fread(coding[i], sizeof(char), mf_size, fp);
+                if(r_count < mf_size){
+                    fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
+                    exit(0);
+                }
+                printf("read m%0*d \nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
+            }
+            fclose(fp);
+        }
+        else{
+            coding[i] = (char *)malloc(sizeof(char)*blocksize);
+        }
 	}
 
 	/* Create coding matrix or bitmatrix and schedule */
@@ -389,7 +412,7 @@ int main (int argc, char **argv) {
             if(i== (file_no - 1)){
                 data[file_no - 1] = block;
             }else{
-                data[i] = (char *)calloc(buffersize,sizeof(char));
+                data[i] = (char *)calloc(blocksize,sizeof(char));
             }
         }
         gettimeofday(&t3, &tz);

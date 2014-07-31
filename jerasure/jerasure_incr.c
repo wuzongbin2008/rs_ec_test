@@ -563,11 +563,11 @@ void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int des
       }
 
       init = 0;
-      data_idx = file_no;
+      i = file_no;
       dptr = (dest_id < k) ? data_ptrs[dest_id] : coding_ptrs[dest_id-k];
 
       /* First copy or xor any data that does not need to be multiplied by a factor */
-      for (i = 0; i < k; i++) {
+      //for (i = 0; i < k; i++) {
             if (matrix_row[i] == 1) {
                   if (src_ids == NULL) {
                     sptr = data_ptrs[i];
@@ -588,10 +588,10 @@ void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int des
                     jerasure_total_xor_bytes += size;
                   }
             }
-      }
+      //}
 
       /* Now do the data that needs to be multiplied by a factor */
-      for (i = 0; i < k; i++) {
+      //for (i = 0; i < k; i++) {
             if (matrix_row[i] != 0 && matrix_row[i] != 1) {
                   if (src_ids == NULL) {
                     sptr = data_ptrs[i];
@@ -611,7 +611,7 @@ void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int des
                   jerasure_total_gf_bytes += size;
                   init = 1;
             }
-      }
+      //}
 
 }
 
