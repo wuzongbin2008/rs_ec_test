@@ -535,7 +535,7 @@ void jerasure_free_schedule_cache(int k, int m, int ***cache)
   free(cache);
 }
 
-void jerasure_matrix_encode(int k, int m, int w, int *matrix,char **data_ptrs, char **coding_ptrs, int size,int start_ec_idx)
+void jerasure_matrix_encode(int k, int m, int w, int *matrix,char **data_ptrs, char **coding_ptrs, int size,int file_no)
 {
       int *init;
       int i, j;
@@ -547,15 +547,15 @@ void jerasure_matrix_encode(int k, int m, int w, int *matrix,char **data_ptrs, c
 
       for (i = 0; i < m; i++) {
             //jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int size)
-            jerasure_matrix_dotprod(k, w, matrix+(i*k), NULL, k+i, data_ptrs, coding_ptrs, size,start_ec_idx);
+            jerasure_matrix_dotprod(k, w, matrix+(i*k), NULL, k+i, data_ptrs, coding_ptrs, size,file_no);
       }
 }
 
-void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int size,int start_ec_idx)
+void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int size,int file_no)
 {
       int init;
       char *dptr, *sptr;
-      int i;
+      int i,data_idx;
 
       if (w != 1 && w != 8 && w != 16 && w != 32) {
         fprintf(stderr, "ERROR: jerasure_matrix_dotprod() called and w is not 1, 8, 16 or 32\n");
@@ -563,6 +563,7 @@ void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int des
       }
 
       init = 0;
+      data_idx = file_no;
       dptr = (dest_id < k) ? data_ptrs[dest_id] : coding_ptrs[dest_id-k];
 
       /* First copy or xor any data that does not need to be multiplied by a factor */
