@@ -70,7 +70,6 @@ enum Coding_Technique method;
 /* Function prototypes */
 int is_prime(int w);
 void ctrl_bs_handler(int dummy);
-void free_array(char **arr);
 
 int jfread(void *ptr, int size, int nmembers, FILE *stream)
 {
@@ -281,7 +280,7 @@ int main (int argc, char **argv)
         }
 
         /* Create Coding directory */
-        i = mkdir("Coding", S_IRWXU);
+        i = mkdir("coding", S_IRWXU);
         if (i == -1 && errno != EEXIST)
         {
             fprintf(stderr, "Unable to create Coding directory.\n");
@@ -291,6 +290,7 @@ int main (int argc, char **argv)
         /* Determine original size of file */
         stat(argv[1], &status);
         size = status.st_size;
+        fclose(fp);
     }
     else
     {
@@ -358,12 +358,12 @@ int main (int argc, char **argv)
     {
         readins = 1;
         buffersize = size;
-        block = (char *)malloc(sizeof(char)*newsize);
+        block = (char *)calloc(newsize,sizeof(char));
         blocksize = newsize;
     }
 
     /* Break inputfile name into the filename and extension */
-    s1 = (char*)malloc(sizeof(char)*(strlen(argv[1])+11));
+    s1 = (char*)malloc(sizeof(char)*(strlen(argv[1])+10));
     s2 = strrchr(argv[1], '/');
     if (s2 != NULL)
     {
@@ -393,12 +393,12 @@ int main (int argc, char **argv)
 
     /* Allocate data and coding */
     data = (char **)malloc(sizeof(char*)*k);
-    //data = (char **)calloc(k,sizeof(char*));
     coding = (char **)malloc(sizeof(char*)*m);
     for (i = 0; i < m; i++)
     {
         //coding[i] = (char *)malloc(sizeof(char)*blocksize);
-        sprintf(fname, "%s/Coding/m%0*d%s", curdir,md, (i+1), s2);
+
+        sprintf(fname, "%s/coding/m%0*d%s", curdir,md, (i+1), s2);
         if ((ret = access(fname, R_OK|W_OK)) == 0)
         {
             fp = fopen(fname, "rb");
@@ -412,10 +412,8 @@ int main (int argc, char **argv)
                 /* Determine original size of file */
                 stat(fname, &status);
                 mf_size = status.st_size;
-//                coding[i] = (char *)malloc(sizeof(char)*(mf_size+blocksize));
-//                r_count = fread(coding[i], sizeof(char), mf_size, fp);
-                coding[i] = (char *)malloc(sizeof(char)*(blocksize));
-                r_count = fread(coding[i], sizeof(char), blocksize, fp);
+                coding[i] = (char *)malloc(sizeof(char)*(mf_size+blocksize));
+                r_count = fread(coding[i], sizeof(char), mf_size, fp);
                 if(r_count < mf_size)
                 {
                     fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
@@ -451,6 +449,7 @@ int main (int argc, char **argv)
     while (n <= readins)
     {
         /* Check if padding is needed, if so, add appropriate number of zeros */
+        fp = fopen(argv[1], "rb");
         if (total < size && total+buffersize <= size)
         {
             total += jfread(block, sizeof(char), buffersize, fp);
@@ -475,15 +474,13 @@ int main (int argc, char **argv)
         int file_no = atoi(s1);
         for (i = 0; i < k; i++)
         {
-            //data[i] = block+(i*blocksize);
             if(i== (file_no - 1))
             {
                 data[file_no - 1] = block;
             }
             else
             {
-                //data[i] = (char *)calloc(blocksize,sizeof(char));
-                data[i] = (char *)malloc(sizeof(char)*blocksize);
+                data[i] = (char *)calloc(blocksize,sizeof(char));
             }
         }
         gettimeofday(&t3, &tz);
@@ -493,7 +490,7 @@ int main (int argc, char **argv)
         gettimeofday(&t4, &tz);
 
         /* Write data to k files */
-        sprintf(fname, "%s/Coding/k%0*d%s", curdir, md,file_no, s2);
+        sprintf(fname, "%s/coding/k%0*d%s", curdir, md,file_no, s2);
         if ((ret = access(fname, R_OK|W_OK)) == 0)
         {
             fp2 = fopen(fname, "ab");
@@ -515,7 +512,7 @@ int main (int argc, char **argv)
             else
             {
                 //sprintf(fname, "%s/Coding/%s_m%0*d%s", curdir, s1, md, i, s2);
-                sprintf(fname, "%s/Coding/m%0*d%s", curdir, md,i, s2);
+                sprintf(fname, "%s/coding/m%0*d%s", curdir, md,i, s2);
                 if ((ret = access(fname, R_OK|W_OK)) == 0)
                 {
                     fp2 = fopen(fname, "ab");
@@ -540,7 +537,7 @@ int main (int argc, char **argv)
 
         /* Create metadata file */
         fname = (char*)malloc(sizeof(char)*(strlen(s1)+strlen(curdir)+18));
-        sprintf(fname, "%s/Coding/%d_meta.txt", curdir, n);
+        sprintf(fname, "%s/coding/%d_meta.txt", curdir, n);
         fp2 = fopen(fname, "wb");
         fprintf(fp2, "%s\n", argv[1]);
         fprintf(fp2, "%d\n", size);
@@ -549,6 +546,7 @@ int main (int argc, char **argv)
         fprintf(fp2, "%d\n", tech);
         fprintf(fp2, "%d\n", readins);
         fclose(fp2);
+        fclose(fp);
 
         n++;
     }
@@ -557,9 +555,7 @@ int main (int argc, char **argv)
     free(s2);
     free(s1);
     free(fname);
-    //free(block);
-    free_array(data);
-    free_array(coding);
+    free(block);
     free(curdir);
 
     /* Calculate rate in MB/sec and print */
@@ -573,15 +569,6 @@ int main (int argc, char **argv)
     printf("Time taken to encode file  total size %d is %0.10f\n",size,totalsec);
     printf("Encoding (MB/sec): %0.10f\n", (size/1024/1024)/totalsec);
     printf("En_Total (MB/sec): %0.10f\n", (size/1024/1024)/tsec);
-}
-
-void free_array(char **arr)
-{
-    int i;
-    for(i=0;i<strlen(arr);i++){
-        free(arr[i]);
-    }
-    free(arr);
 }
 
 /* is_prime returns 1 if number if prime, 0 if not prime */
