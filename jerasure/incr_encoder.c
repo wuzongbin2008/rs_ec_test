@@ -70,6 +70,7 @@ enum Coding_Technique method;
 /* Function prototypes */
 int is_prime(int w);
 void ctrl_bs_handler(int dummy);
+void free_array(char **arr);
 
 int jfread(void *ptr, int size, int nmembers, FILE *stream)
 {
@@ -411,8 +412,10 @@ int main (int argc, char **argv)
                 /* Determine original size of file */
                 stat(fname, &status);
                 mf_size = status.st_size;
-                coding[i] = (char *)malloc(sizeof(char)*(mf_size+blocksize));
-                r_count = fread(coding[i], sizeof(char), mf_size, fp);
+//                coding[i] = (char *)malloc(sizeof(char)*(mf_size+blocksize));
+//                r_count = fread(coding[i], sizeof(char), mf_size, fp);
+                coding[i] = (char *)malloc(sizeof(char)*(blocksize));
+                r_count = fread(coding[i], sizeof(char), blocksize, fp);
                 if(r_count < mf_size)
                 {
                     fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
@@ -444,30 +447,30 @@ int main (int argc, char **argv)
     n = 1;
     total = 0;
 
-    /* Check if padding is needed, if so, add appropriate number of zeros */
-    if (total < size && total+buffersize <= size)
-    {
-        total += jfread(block, sizeof(char), buffersize, fp);
-    }
-    else if (total < size && total+buffersize > size)
-    {
-        extra = jfread(block, sizeof(char), buffersize, fp);
-        for (i = extra; i < buffersize; i++)
-        {
-            block[i] = '0';
-        }
-    }
-    else if (total == size)
-    {
-        for (i = 0; i < buffersize; i++)
-        {
-            block[i] = '0';
-        }
-    }
-
     /* Start encoding */
     while (n <= readins)
     {
+        /* Check if padding is needed, if so, add appropriate number of zeros */
+        if (total < size && total+buffersize <= size)
+        {
+            total += jfread(block, sizeof(char), buffersize, fp);
+        }
+        else if (total < size && total+buffersize > size)
+        {
+            extra = jfread(block, sizeof(char), buffersize, fp);
+            for (i = extra; i < buffersize; i++)
+            {
+                block[i] = '0';
+            }
+        }
+        else if (total == size)
+        {
+            for (i = 0; i < buffersize; i++)
+            {
+                block[i] = '0';
+            }
+        }
+
         /* Set pointers to point to file data */
         int file_no = atoi(s1);
         for (i = 0; i < k; i++)
@@ -552,7 +555,9 @@ int main (int argc, char **argv)
     free(s2);
     free(s1);
     free(fname);
-    free(block);
+    //free(block);
+    free_array(data);
+    free_array(coding);
     free(curdir);
 
     /* Calculate rate in MB/sec and print */
@@ -566,6 +571,15 @@ int main (int argc, char **argv)
     printf("Time taken to encode file  total size %d is %0.10f\n",size,totalsec);
     printf("Encoding (MB/sec): %0.10f\n", (size/1024/1024)/totalsec);
     printf("En_Total (MB/sec): %0.10f\n", (size/1024/1024)/tsec);
+}
+
+void free_array(char **arr)
+{
+    int i;
+    for(i=0;i<strlen(arr);i++){
+        free(arr[i]);
+    }
+    free(arr);
 }
 
 /* is_prime returns 1 if number if prime, 0 if not prime */
