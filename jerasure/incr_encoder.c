@@ -363,7 +363,7 @@ int main (int argc, char **argv)
     }
 
     /* Break inputfile name into the filename and extension */
-    s1 = (char*)malloc(sizeof(char)*(strlen(argv[1])+10));
+    s1 = (char*)malloc(sizeof(char)*(strlen(argv[1])+11));
     s2 = strrchr(argv[1], '/');
     if (s2 != NULL)
     {
@@ -387,17 +387,17 @@ int main (int argc, char **argv)
     }
 
     /* Allocate for full file name */
-    fname = (char*)malloc(sizeof(char)*(strlen(argv[1])+strlen(curdir)+10));
+    fname = (char*)malloc(sizeof(char)*(strlen(argv[1])+strlen(curdir)+100));
     sprintf(temp, "%d", k);
     md = strlen(temp);
 
     /* Allocate data and coding */
     data = (char **)malloc(sizeof(char*)*k);
+    //data = (char **)calloc(k,sizeof(char*));
     coding = (char **)malloc(sizeof(char*)*m);
     for (i = 0; i < m; i++)
     {
         //coding[i] = (char *)malloc(sizeof(char)*blocksize);
-
         sprintf(fname, "%s/Coding/m%0*d%s", curdir,md, (i+1), s2);
         if ((ret = access(fname, R_OK|W_OK)) == 0)
         {
@@ -475,13 +475,15 @@ int main (int argc, char **argv)
         int file_no = atoi(s1);
         for (i = 0; i < k; i++)
         {
+            //data[i] = block+(i*blocksize);
             if(i== (file_no - 1))
             {
                 data[file_no - 1] = block;
             }
             else
             {
-                data[i] = (char *)calloc(blocksize,sizeof(char));
+                //data[i] = (char *)calloc(blocksize,sizeof(char));
+                data[i] = (char *)malloc(sizeof(char)*blocksize);
             }
         }
         gettimeofday(&t3, &tz);
