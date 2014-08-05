@@ -513,14 +513,15 @@ int main (int argc, char **argv)
             {
                 //sprintf(fname, "%s/Coding/%s_m%0*d%s", curdir, s1, md, i, s2);
                 sprintf(fname, "%s/coding/m%0*d%s", curdir, md,i, s2);
-                if ((ret = access(fname, R_OK|W_OK)) == 0)
-                {
-                    fp2 = fopen(fname, "ab");
-                }
-                else
-                {
-                    fp2 = fopen(fname, "wb");
-                }
+                fp2 = fopen(fname, "wb");
+//                if ((ret = access(fname, R_OK|W_OK)) == 0)
+//                {
+//                    fp2 = fopen(fname, "ab");
+//                }
+//                else
+//                {
+//                    fp2 = fopen(fname, "wb");
+//                }
                 fwrite(coding[i-1], sizeof(char), blocksize, fp2);
                 fclose(fp2);
             }

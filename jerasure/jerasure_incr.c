@@ -562,8 +562,8 @@ void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int des
         exit(1);
       }
 
-      init = 0;
       i = file_no;
+      init = i;
       dptr = (dest_id < k) ? data_ptrs[dest_id] : coding_ptrs[dest_id-k];
 
       /* First copy or xor any data that does not need to be multiplied by a factor */
