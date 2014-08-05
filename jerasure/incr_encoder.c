@@ -412,7 +412,7 @@ int main (int argc, char **argv)
                 /* Determine original size of file */
                 stat(fname, &status);
                 mf_size = status.st_size;
-                coding[i] = (char *)malloc(sizeof(char)*(mf_size+blocksize));
+                coding[i] = (char *)malloc(sizeof(char)*(blocksize));
                 r_count = fread(coding[i], sizeof(char), mf_size, fp);
                 if(r_count < mf_size)
                 {
