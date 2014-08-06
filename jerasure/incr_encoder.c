@@ -352,7 +352,7 @@ int main (int argc, char **argv)
             readins = newsize/buffersize;
         }
         block = (char *)malloc(sizeof(char)*buffersize);
-        blocksize = buffersize/k;
+        blocksize = buffersize;
     }
     else
     {
@@ -387,47 +387,13 @@ int main (int argc, char **argv)
     }
 
     /* Allocate for full file name */
-    fname = (char*)malloc(sizeof(char)*(strlen(argv[1])+strlen(curdir)+100));
+    fname = (char*)malloc(sizeof(char)*(strlen(argv[1])+strlen(curdir)+12));
     sprintf(temp, "%d", k);
     md = strlen(temp);
 
     /* Allocate data and coding */
     data = (char **)malloc(sizeof(char*)*k);
     coding = (char **)malloc(sizeof(char*)*m);
-    for (i = 0; i < m; i++)
-    {
-        //coding[i] = (char *)malloc(sizeof(char)*blocksize);
-
-        sprintf(fname, "%s/coding/m%0*d%s", curdir,md, (i+1), s2);
-        if ((ret = access(fname, R_OK|W_OK)) == 0)
-        {
-            fp = fopen(fname, "rb");
-            if (fp == NULL)
-            {
-                fprintf(stderr,  "Invalid file for m%d\n",i);
-                exit(0);
-            }
-            else
-            {
-                /* Determine original size of file */
-                stat(fname, &status);
-                mf_size = status.st_size;
-                coding[i] = (char *)malloc(sizeof(char)*(blocksize));
-                r_count = fread(coding[i], sizeof(char), mf_size, fp);
-                if(r_count < mf_size)
-                {
-                    fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
-                    exit(0);
-                }
-                printf("read m%0*d \nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
-            }
-            fclose(fp);
-        }
-        else
-        {
-            coding[i] = (char *)malloc(sizeof(char)*blocksize);
-        }
-    }
 
     /* Create coding matrix or bitmatrix and schedule */
     gettimeofday(&t3, &tz);
@@ -481,6 +447,42 @@ int main (int argc, char **argv)
             else
             {
                 data[i] = (char *)calloc(blocksize,sizeof(char));
+            }
+        }
+
+        /* Set pointers to point to coding data */
+        for (i = 0; i < m; i++)
+        {
+            //coding[i] = (char *)malloc(sizeof(char)*blocksize);
+
+            sprintf(fname, "%s/coding/m%0*d%s", curdir,md, (i+1), s2);
+            if ((ret = access(fname, R_OK|W_OK)) == 0)
+            {
+                fp = fopen(fname, "rb");
+                if (fp == NULL)
+                {
+                    fprintf(stderr,  "Invalid file for m%d\n",i);
+                    exit(0);
+                }
+                else
+                {
+                    /* Determine original size of file */
+                    stat(fname, &status);
+                    mf_size = status.st_size;
+                    coding[i] = (char *)malloc(sizeof(char)*(blocksize));
+                    r_count = fread(coding[i], sizeof(char), mf_size, fp);
+                    if(r_count < mf_size)
+                    {
+                        fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
+                        exit(0);
+                    }
+                    printf("read m%0*d \nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
+                }
+                fclose(fp);
+            }
+            else
+            {
+                coding[i] = (char *)malloc(sizeof(char)*blocksize);
             }
         }
         gettimeofday(&t3, &tz);
@@ -556,6 +558,8 @@ int main (int argc, char **argv)
     free(s2);
     free(s1);
     free(fname);
+//    free(data);
+//    free(coding);
     free(block);
     free(curdir);
 
