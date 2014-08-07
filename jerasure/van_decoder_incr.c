@@ -203,6 +203,7 @@ int main (int argc, char **argv)
     tmp = (char *)calloc(33,sizeof(char));
 
     /* Start decoding */
+    int er_file_no;
     readins = origsize/buffersize;
     if (buffersize == origsize)
     {
