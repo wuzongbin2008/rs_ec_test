@@ -86,18 +86,18 @@ int jfread(void *ptr, int size, int nmembers, FILE *stream)
 
 int main (int argc, char **argv)
 {
-    FILE *fp, *fp2;				// file pointers
-    char *memblock;		// reading in file
-    char *block;				// padding file
+    FILE *fp, *fp2;				    // file pointers
+    char *memblock;		            // reading in file
+    char *block;				    // padding file
     int size, newsize,mf_size,r_count;			// size of file and temp size
-    struct stat status;			// finding file size
+    struct stat status;			    // finding file size
 
     enum Coding_Technique tech;		// coding technique (parameter)
     int k, m, w, packetsize;		// parameters
     int buffersize;					// paramter
     int i, j;						// loop control variables
     int blocksize;					// size of k+m files
-    int total;
+    int total,file_no;
     int extra;
 
     /* Jerasure Arguments */
@@ -410,6 +410,7 @@ int main (int argc, char **argv)
     /* Read in data until finished */
     n = 1;
     total = 0;
+    file_no = 1;
 
     /* Start encoding */
     while (n <= readins)
@@ -437,7 +438,6 @@ int main (int argc, char **argv)
         }
 
         /* Set pointers to point to file data */
-        int file_no = atoi(s1);
         for (i = 0; i < k; i++)
         {
             if(i== (file_no - 1))
@@ -458,8 +458,8 @@ int main (int argc, char **argv)
             sprintf(fname, "%s/coding/m%0*d%s", curdir,md, (i+1), s2);
             if ((ret = access(fname, R_OK|W_OK)) == 0)
             {
-                fp = fopen(fname, "rb");
-                if (fp == NULL)
+                fp2 = fopen(fname, "rb");
+                if (fp2 == NULL)
                 {
                     fprintf(stderr,  "Invalid file for m%d\n",i);
                     exit(0);
@@ -470,7 +470,7 @@ int main (int argc, char **argv)
                     stat(fname, &status);
                     mf_size = status.st_size;
                     coding[i] = (char *)malloc(sizeof(char)*(blocksize));
-                    r_count = fread(coding[i], sizeof(char), mf_size, fp);
+                    r_count = fread(coding[i], sizeof(char), mf_size, fp2);
                     if(r_count < mf_size)
                     {
                         fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
@@ -478,7 +478,7 @@ int main (int argc, char **argv)
                     }
                     printf("read m%0*d \nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
                 }
-                fclose(fp);
+                fclose(fp2);
             }
             else
             {
@@ -540,8 +540,15 @@ int main (int argc, char **argv)
 
         /* Create metadata file */
         fname = (char*)malloc(sizeof(char)*(strlen(s1)+strlen(curdir)+18));
-        sprintf(fname, "%s/coding/%d_meta.txt", curdir, n);
-        fp2 = fopen(fname, "wb");
+        sprintf(fname, "%s/coding/%d_meta.txt", curdir, file_no);
+        if ((ret = access(fname, R_OK|W_OK)) == 0)
+        {
+            fp2 = fopen(fname, "ab");
+        }
+        else
+        {
+            fp2 = fopen(fname, "wb");
+        }
         fprintf(fp2, "%s\n", argv[1]);
         fprintf(fp2, "%d\n", size);
         fprintf(fp2, "%d %d %d %d %d\n", k, m, w, packetsize, buffersize);
