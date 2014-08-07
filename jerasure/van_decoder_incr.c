@@ -148,11 +148,9 @@ int main (int argc, char **argv)
 
     /* Read in parameters from metadata file */
     sprintf(fname, "%s/Coding/%s_meta.txt", curdir, cs1);
-
     fp = fopen(fname, "rb");
     temp = (char *)malloc(sizeof(char)*(strlen(argv[1])+10));
     fscanf(fp, "%s", temp);
-
     if (fscanf(fp, "%d", &origsize) != 1)
     {
         fprintf(stderr, "Original size is not valid\n");
@@ -264,18 +262,20 @@ int main (int argc, char **argv)
         }
 
         /* Finish allocating data/coding if needed */
-        for (i = 0; i < numerased; i++)
+        if (n == 1)
         {
-            if (erasures[i] < k)
+            for (i = 0; i < numerased; i++)
             {
-                data[erasures[i]] = (char *)malloc(sizeof(char)*blocksize);
-            }
-            else
-            {
-                coding[erasures[i]-k] = (char *)malloc(sizeof(char)*blocksize);
+                if (erasures[i] < k)
+                {
+                    data[erasures[i]] = (char *)malloc(sizeof(char)*blocksize);
+                }
+                else
+                {
+                    coding[erasures[i]-k] = (char *)malloc(sizeof(char)*blocksize);
+                }
             }
         }
-
 
         erasures[numerased] = -1;
         gettimeofday(&t3, &tz);
@@ -311,23 +311,41 @@ int main (int argc, char **argv)
         /* Write decoded data to file */
         sprintf(fname, "%s/Coding/%d_decoded%s", curdir, n, cs2);
         fp = fopen(fname, "wb");
-//        if (n == 1) {
-//			fp = fopen(fname, "wb");
-//		}
-//		else {
-//			fp = fopen(fname, "ab");
-//		}
-        printf("data[%d] = %s\n",n-1,data[n-1]);
-        int cnt ;
-        //for (i = 0; i < 2; i++) {
-        cnt = fwrite(data[n-1], sizeof(char), strlen(data[n-1]), fp);
-        total+= strlen(data[n-1]);
-        printf("data[%d]=%d\ntotal = %d\n",n,strlen(data[n-1]),total);
-        //}
+        if ((ret = access(fname, R_OK|W_OK)) == 0)
+        {
+            fp = fopen(fname, "ab");
+        }
+        else
+        {
+            fp = fopen(fname, "wb");
+        }
+        for (i = 0; i < k; i++)
+        {
+            if (total+blocksize <= origsize)
+            {
+                fwrite(data[i], sizeof(char), blocksize, fp);
+                total+= blocksize;
+            }
+            else
+            {
+                for (j = 0; j < blocksize; j++)
+                {
+                    if (total < origsize)
+                    {
+                        fprintf(fp, "%c", data[i][j]);
+                        total++;
+                    }
+                    else
+                    {
+                        break;
+                    }
 
-        n++;
+                }
+            }
+        }
         fclose(fp);
 
+        n++;
         tsec = 0.0;
         tsec += t4.tv_usec;
         tsec -= t3.tv_usec;
