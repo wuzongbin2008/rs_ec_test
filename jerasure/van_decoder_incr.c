@@ -147,7 +147,7 @@ int main (int argc, char **argv)
     fname = (char *)malloc(sizeof(char*)*(100+strlen(argv[1])+10));
 
     /* Read in parameters from metadata file */
-    sprintf(fname, "%s/Coding/%s_meta.txt", curdir, cs1);
+    sprintf(fname, "%s/coding/%s_meta.txt", curdir, cs1);
     fp = fopen(fname, "rb");
     temp = (char *)malloc(sizeof(char)*(strlen(argv[1])+10));
     fscanf(fp, "%s", temp);
@@ -156,11 +156,10 @@ int main (int argc, char **argv)
         fprintf(stderr, "Original size is not valid\n");
         exit(0);
     }
-    if (fscanf(fp, "%d", &newsize) != 1)
-    {
-        fprintf(stderr, "New size is not valid\n");
-        exit(0);
-    }
+    if (fscanf(fp, "%d", &newsize) != 1) {
+		fprintf(stderr, "New size is not valid\n");
+		exit(0);
+	}
     if (fscanf(fp, "%d %d %d %d %d", &k, &m, &w, &packetsize, &buffersize) != 5)
     {
         fprintf(stderr, "Parameters are not correct\n");
@@ -211,7 +210,6 @@ int main (int argc, char **argv)
     }
     while (n <= readins)
     {
-
         numerased = 0;
 
         /* Open files, check for erasures, read in data/coding */
@@ -230,7 +228,7 @@ int main (int argc, char **argv)
         }
         for (i = 1; i <= m; i++)
         {
-            sprintf(fname, "%s/Coding/m%0*d%s", curdir,md, i, cs2);
+            sprintf(fname, "%s/coding/m%0*d%s", curdir,md, i, cs2);
             fp = fopen(fname, "rb");
             if (fp == NULL)
             {
@@ -296,7 +294,7 @@ int main (int argc, char **argv)
 //		}
 
         /* Write decoded data to file */
-        sprintf(fname, "%s/Coding/%d_decoded%s", curdir, n, cs2);
+        sprintf(fname, "%s/coding/%d_decoded%s", curdir, n, cs2);
         fp = fopen(fname, "wb");
         if ((ret = access(fname, R_OK|W_OK)) == 0)
         {

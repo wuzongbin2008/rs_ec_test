@@ -552,6 +552,7 @@ int main (int argc, char **argv)
         }
         fprintf(fp2, "%s\n", argv[1]);
         fprintf(fp2, "%d\n", size);
+        fprintf(fp2, "%d\n", newsize);
         fprintf(fp2, "%d %d %d %d %d\n", k, m, w, packetsize, buffersize);
         fprintf(fp2, "%s\n", argv[4]);
         fprintf(fp2, "%d\n", tech);
