@@ -223,19 +223,6 @@ int main (int argc, char **argv)
                 erasures[numerased] = i-1;
                 numerased++;
             }
-            else if(n == 2 && i == 2)
-            {
-                erased[i-1] = 1;
-                erasures[numerased] = i-1;
-                numerased++;
-
-//                sprintf(fname, "%s/Coding/k%0*d%s", curdir,md, i, cs2);
-//                fp = fopen(fname, "rb");
-//                stat(fname, &status);
-//                //blocksize = status.st_size;
-//                data[i-1] = (char *)malloc(sizeof(char)*blocksize);
-//                fread(data[i-1], sizeof(char), blocksize, fp);
-            }
             else
             {
                 //blocksize = 912000;
