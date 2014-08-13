@@ -225,7 +225,6 @@ int main (int argc, char **argv)
             }
             else
             {
-                //blocksize = 912000;
                 data[i-1] = (char *)calloc(blocksize,sizeof(char));
             }
         }
