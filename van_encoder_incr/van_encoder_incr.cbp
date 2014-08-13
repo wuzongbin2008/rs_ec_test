@@ -35,13 +35,13 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../jerasure/galois.h" />
-		<Unit filename="../jerasure/incr_encoder.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="../jerasure/jerasure_incr.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../jerasure/jerasure_incr.h" />
+		<Unit filename="../jerasure/van_encoder_incr.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />

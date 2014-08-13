@@ -126,7 +126,7 @@ void jerasure_free_schedule_cache(int k, int m, int ***cache);
 void jerasure_do_parity(int k, char **data_ptrs, char *parity_ptr, int size);
 
 void jerasure_matrix_encode(int k, int m, int w, int *matrix,
-                          char **data_ptrs, char **coding_ptrs, int size,int sizestart_ec_idx);
+                          char **data_ptrs, char **coding_ptrs, int size,int sizestart_ec_idx,int init);
 
 void jerasure_bitmatrix_encode(int k, int m, int w, int *bitmatrix,
                             char **data_ptrs, char **coding_ptrs, int size, int packetsize);
@@ -210,7 +210,7 @@ int *jerasure_erasures_to_erased(int k, int m, int *erasures);
 
 void jerasure_matrix_dotprod(int k, int w, int *matrix_row,
                           int *src_ids, int dest_id,
-                          char **data_ptrs, char **coding_ptrs, int size,int sizestart_ec_idx);
+                          char **data_ptrs, char **coding_ptrs, int size,int sizestart_ec_idx,int init);
 
 void jerasure_bitmatrix_dotprod(int k, int w, int *bitmatrix_row,
                              int *src_ids, int dest_id,

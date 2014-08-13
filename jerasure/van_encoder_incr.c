@@ -97,7 +97,7 @@ int main (int argc, char **argv)
     int buffersize;					// paramter
     int i, j;						// loop control variables
     int blocksize;					// size of k+m files
-    int total,file_no;
+    int total,file_no,init;
     int extra;
 
     /* Jerasure Arguments */
@@ -454,10 +454,10 @@ int main (int argc, char **argv)
         for (i = 0; i < m; i++)
         {
             //coding[i] = (char *)malloc(sizeof(char)*blocksize);
-
             sprintf(fname, "%s/coding/m%0*d%s", curdir,md, (i+1), s2);
             if ((ret = access(fname, R_OK|W_OK)) == 0)
             {
+                init = 1;
                 fp2 = fopen(fname, "rb");
                 if (fp2 == NULL)
                 {
@@ -482,13 +482,14 @@ int main (int argc, char **argv)
             }
             else
             {
+                init = 0;
                 coding[i] = (char *)malloc(sizeof(char)*blocksize);
             }
         }
         gettimeofday(&t3, &tz);
 
         /* Encode according to coding method */
-        jerasure_matrix_encode(k, m, w, matrix, data, coding, blocksize,(file_no-1));
+        jerasure_matrix_encode(k, m, w, matrix, data, coding, blocksize,(file_no-1),init);
         gettimeofday(&t4, &tz);
 
         /* Write data to k files */

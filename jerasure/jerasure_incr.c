@@ -218,7 +218,7 @@ int jerasure_matrix_decode(int k, int m, int w, int *matrix, int row_k_ones, int
        */
       for (i = 0; edd > 0 && i < lastdrive; i++) {
             if (erased[i]) {
-              jerasure_matrix_dotprod(k, w, decoding_matrix+(i*k), dm_ids, i, data_ptrs, coding_ptrs, size,0);
+              jerasure_matrix_dotprod(k, w, decoding_matrix+(i*k), dm_ids, i, data_ptrs, coding_ptrs, size,0,0);
               edd--;
             }
       }
@@ -229,14 +229,14 @@ int jerasure_matrix_decode(int k, int m, int w, int *matrix, int row_k_ones, int
             for (i = 0; i < k; i++) {
               tmpids[i] = (i < lastdrive) ? i : i+1;
             }
-            jerasure_matrix_dotprod(k, w, matrix, tmpids, lastdrive, data_ptrs, coding_ptrs, size,0);
+            jerasure_matrix_dotprod(k, w, matrix, tmpids, lastdrive, data_ptrs, coding_ptrs, size,0,0);
             free(tmpids);
       }
 
       /* Finally, re-encode any erased coding devices */
       for (i = 0; i < m; i++) {
             if (erased[k+i]) {
-              jerasure_matrix_dotprod(k, w, matrix+(i*k), NULL, i+k, data_ptrs, coding_ptrs, size,0);
+              jerasure_matrix_dotprod(k, w, matrix+(i*k), NULL, i+k, data_ptrs, coding_ptrs, size,0,0);
             }
       }
 
@@ -535,9 +535,8 @@ void jerasure_free_schedule_cache(int k, int m, int ***cache)
   free(cache);
 }
 
-void jerasure_matrix_encode(int k, int m, int w, int *matrix,char **data_ptrs, char **coding_ptrs, int size,int file_no)
+void jerasure_matrix_encode(int k, int m, int w, int *matrix,char **data_ptrs, char **coding_ptrs, int size,int file_no,int init)
 {
-      int *init;
       int i, j;
 
       if (w != 8 && w != 16 && w != 32) {
@@ -547,13 +546,12 @@ void jerasure_matrix_encode(int k, int m, int w, int *matrix,char **data_ptrs, c
 
       for (i = 0; i < m; i++) {
             //jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int size)
-            jerasure_matrix_dotprod(k, w, matrix+(i*k), NULL, k+i, data_ptrs, coding_ptrs, size,file_no);
+            jerasure_matrix_dotprod(k, w, matrix+(i*k), NULL, k+i, data_ptrs, coding_ptrs, size,file_no,init);
       }
 }
 
-void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int size,int file_no)
+void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int size,int file_no,int init)
 {
-      int init;
       char *dptr, *sptr;
       int i,data_idx;
 
@@ -563,7 +561,6 @@ void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int des
       }
 
       i = file_no;
-      init = i;
       dptr = (dest_id < k) ? data_ptrs[dest_id] : coding_ptrs[dest_id-k];
 
       /* First copy or xor any data that does not need to be multiplied by a factor */
