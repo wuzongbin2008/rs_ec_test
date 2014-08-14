@@ -1,22 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="../jerasure/jerasure_incr.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../jerasure/jerasure_incr.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="14601" topLine="611" />
+			<Cursor1 position="14601" topLine="614" />
 		</Cursor>
 	</File>
-	<File name="../jerasure/van_decoder_incr.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../jerasure/van_decoder_incr.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5721" topLine="190" />
+			<Cursor1 position="6354" topLine="188" />
 		</Cursor>
 		<Folding>
-			<Collapse line="0" />
 			<Collapse line="27" />
+			<Collapse line="79" />
 			<Collapse line="130" />
 			<Collapse line="135" />
-			<Collapse line="154" />
-			<Collapse line="380" />
+			<Collapse line="140" />
+			<Collapse line="229" />
+			<Collapse line="250" />
+			<Collapse line="273" />
+			<Collapse line="277" />
+			<Collapse line="299" />
+			<Collapse line="303" />
+			<Collapse line="307" />
+			<Collapse line="309" />
+			<Collapse line="314" />
+			<Collapse line="316" />
+			<Collapse line="318" />
+			<Collapse line="323" />
+			<Collapse line="364" />
 		</Folding>
 	</File>
 </CodeBlocks_layout_file>

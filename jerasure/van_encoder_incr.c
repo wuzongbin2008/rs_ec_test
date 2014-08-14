@@ -97,7 +97,7 @@ int main (int argc, char **argv)
     int buffersize;					// paramter
     int i, j;						// loop control variables
     int blocksize;					// size of k+m files
-    int total,file_no,init;
+    int total,disk_no,init;
     int extra;
 
     /* Jerasure Arguments */
@@ -394,6 +394,10 @@ int main (int argc, char **argv)
     /* Allocate data and coding */
     data = (char **)malloc(sizeof(char*)*k);
     coding = (char **)malloc(sizeof(char*)*m);
+    for (i = 0; i < m; i++)
+    {
+        coding[i] = (char *)malloc(sizeof(char)*blocksize);
+    }
 
     /* Create coding matrix or bitmatrix and schedule */
     gettimeofday(&t3, &tz);
@@ -410,7 +414,7 @@ int main (int argc, char **argv)
     /* Read in data until finished */
     n = 1;
     total = 0;
-    file_no = 1;
+    disk_no = 1;
 
     /* Start encoding */
     while (n <= readins)
@@ -440,9 +444,9 @@ int main (int argc, char **argv)
         /* Set pointers to point to file data */
         for (i = 0; i < k; i++)
         {
-            if(i== (file_no - 1))
+            if(i== (disk_no - 1))
             {
-                data[file_no - 1] = block;
+                data[disk_no - 1] = block;
             }
             else
             {
@@ -451,49 +455,50 @@ int main (int argc, char **argv)
         }
 
         /* Set pointers to point to coding data */
-        for (i = 0; i < m; i++)
-        {
-            //coding[i] = (char *)malloc(sizeof(char)*blocksize);
-            sprintf(fname, "%s/coding/m%0*d%s", curdir,md, (i+1), s2);
-            if ((ret = access(fname, R_OK|W_OK)) == 0)
+        if(disk_no > 1){
+            for (i = 0; i < m; i++)
             {
-                init = 1;
-                fp2 = fopen(fname, "rb");
-                if (fp2 == NULL)
+                //coding[i] = (char *)malloc(sizeof(char)*blocksize);
+                sprintf(fname, "%s/coding/m%0*d%s", curdir,md, (i+1), s2);
+                if ((ret = access(fname, R_OK|W_OK)) == 0)
                 {
-                    fprintf(stderr,  "Invalid file for m%d\n",i);
-                    exit(0);
+                    init = 1;
+                    fp2 = fopen(fname, "rb");
+                    if (fp2 == NULL)
+                    {
+                        fprintf(stderr,  "Invalid file for m%d\n",i);
+                        exit(0);
+                    }
+                    else
+                    {
+                        /* Determine original size of file */
+                        stat(fname, &status);
+                        mf_size = status.st_size;
+                        r_count = fread(coding[i], sizeof(char), mf_size, fp2);
+                        if(r_count < mf_size)
+                        {
+                            fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
+                            exit(0);
+                        }
+                        printf("read m%0*d \nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
+                    }
+                    fclose(fp2);
                 }
                 else
                 {
-                    /* Determine original size of file */
-                    stat(fname, &status);
-                    mf_size = status.st_size;
-                    coding[i] = (char *)malloc(sizeof(char)*(blocksize));
-                    r_count = fread(coding[i], sizeof(char), mf_size, fp2);
-                    if(r_count < mf_size)
-                    {
-                        fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
-                        exit(0);
-                    }
-                    printf("read m%0*d \nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
+                    fprintf(stderr,  "can't access m%d%s\n",md,(i+1));
+                    exit(0);
                 }
-                fclose(fp2);
-            }
-            else
-            {
-                init = 0;
-                coding[i] = (char *)malloc(sizeof(char)*blocksize);
             }
         }
         gettimeofday(&t3, &tz);
 
         /* Encode according to coding method */
-        jerasure_matrix_encode(k, m, w, matrix, data, coding, blocksize,(file_no-1),init);
+        jerasure_matrix_encode(k, m, w, matrix, data, coding, blocksize,(disk_no-1),init);
         gettimeofday(&t4, &tz);
 
         /* Write data to k files */
-        sprintf(fname, "%s/coding/k%0*d%s", curdir, md,file_no, s2);
+        sprintf(fname, "%s/coding/k%0*d%s", curdir, md,disk_no, s2);
         if ((ret = access(fname, R_OK|W_OK)) == 0)
         {
             fp2 = fopen(fname, "ab");
@@ -502,7 +507,7 @@ int main (int argc, char **argv)
         {
             fp2 = fopen(fname, "wb");
         }
-        fwrite(data[file_no-1], sizeof(char), blocksize, fp2);
+        fwrite(data[disk_no-1], sizeof(char), blocksize, fp2);
         fclose(fp2);
 
         /* Write encoded data to m files */
@@ -516,15 +521,14 @@ int main (int argc, char **argv)
             {
                 //sprintf(fname, "%s/Coding/%s_m%0*d%s", curdir, s1, md, i, s2);
                 sprintf(fname, "%s/coding/m%0*d%s", curdir, md,i, s2);
-                fp2 = fopen(fname, "wb");
-//                if ((ret = access(fname, R_OK|W_OK)) == 0)
-//                {
-//                    fp2 = fopen(fname, "ab");
-//                }
-//                else
-//                {
-//                    fp2 = fopen(fname, "wb");
-//                }
+                if (disk_no > 1)
+                {
+                    fp2 = fopen(fname, "wb");
+                }
+                else
+                {
+                    fp2 = fopen(fname, "ab");
+                }
                 fwrite(coding[i-1], sizeof(char), blocksize, fp2);
                 fclose(fp2);
             }
@@ -541,7 +545,7 @@ int main (int argc, char **argv)
 
         /* Create metadata file */
         fname = (char*)malloc(sizeof(char)*(strlen(s1)+strlen(curdir)+18));
-        sprintf(fname, "%s/coding/%d_meta.txt", curdir, file_no);
+        sprintf(fname, "%s/coding/%d_meta.txt", curdir, disk_no);
         if ((ret = access(fname, R_OK|W_OK)) == 0)
         {
             fp2 = fopen(fname, "ab");
