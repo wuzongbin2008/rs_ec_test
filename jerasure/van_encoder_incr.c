@@ -413,6 +413,7 @@ int main (int argc, char **argv)
     total = 0;
 
     /* Start encoding */
+    blocksize = 320;
     while (n <= readins)
     {
         /* Check if padding is needed, if so, add appropriate number of zeros */
@@ -470,7 +471,8 @@ int main (int argc, char **argv)
                         /* Determine original size of file */
                         stat(fname, &status);
                         mf_size = status.st_size;
-                        r_count = fread(coding[i], sizeof(char), mf_size, fp2);
+                        coding[i] = (char *)malloc(sizeof(char)*blocksize);
+                        r_count = fread(coding[i], sizeof(char), blocksize, fp2);
                         if(r_count < mf_size)
                         {
                             fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
