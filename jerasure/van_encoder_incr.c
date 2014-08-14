@@ -145,9 +145,9 @@ int main (int argc, char **argv)
     char *matrix_data_file = ".matrix_data.txt";
 
     /* Error check Arguments*/
-    if (argc != 8)
+    if (argc != 9)
     {
-        fprintf(stderr,  "usage: inputfile k m coding_technique w (packetsize) (buffersize)\n");
+        fprintf(stderr,  "usage: inputfile k m coding_technique w (packetsize) (buffersize) (disk_no)\n");
         fprintf(stderr,  "\nChoose one of the following coding techniques: \nreed_sol_van, \nreed_sol_r6_op, \ncauchy_orig, \ncauchy_good, \nliberation, \nblaum_roth, \nliber8tion");
         exit(0);
     }
@@ -180,18 +180,15 @@ int main (int argc, char **argv)
             exit(0);
         }
     }
-    if (argc != 8)
+    if (sscanf(argv[7], "%d", &buffersize) == 0 || buffersize < 0)
     {
-        buffersize = 0;
+        fprintf(stderr, "Invalid value for buffersize\n");
+        exit(0);
     }
-    else
+    if (sscanf(argv[8], "%d", &disk_no) == 0 || disk_no < 0)
     {
-        if (sscanf(argv[7], "%d", &buffersize) == 0 || buffersize < 0)
-        {
-            fprintf(stderr, "Invalid value for buffersize\n");
-            exit(0);
-        }
-
+        fprintf(stderr, "Invalid value for disk_no\n");
+        exit(0);
     }
 
     /* Determine proper buffersize by finding the closest valid buffersize to the input value  */
@@ -414,7 +411,6 @@ int main (int argc, char **argv)
     /* Read in data until finished */
     n = 1;
     total = 0;
-    disk_no = 1;
 
     /* Start encoding */
     while (n <= readins)
