@@ -149,5 +149,7 @@ Encoding Rate (size of file/total time) is 4.1669800158
 
 
 
-
+incr_encode:
+	1、新增disk，需要重新计算整个m文件，创建新的m文件。
+	2、记录每次编码的位置；因为新coding文件可能只是部分条带完成累加计算（比如只进行320k的重新coding）。
 

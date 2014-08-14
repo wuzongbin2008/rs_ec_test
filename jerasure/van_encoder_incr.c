@@ -118,7 +118,7 @@ int main (int argc, char **argv)
     /* Creation of file name variables */
     char temp[5];
     char *s1, *s2;
-    char *fname;
+    char *fname,*new_m;
     int md;
     char *curdir;
 
@@ -518,19 +518,31 @@ int main (int argc, char **argv)
             else
             {
                 //sprintf(fname, "%s/Coding/%s_m%0*d%s", curdir, s1, md, i, s2);
+                int new_m_size;
                 if (disk_no > 1)
                 {
                     sprintf(fname, "%s/coding/m0%0*d%s", curdir, md,i, s2);
                     //fp2 = fopen(fname, "wb");
+                    fp2 = fopen(fname, "ab");
+                    fwrite(coding[i-1], sizeof(char), blocksize, fp2);
+                    fclose(fp2);
+                    stat(fname, &status);
+                    new_m_size = status.st_size;
                 }
                 else
                 {
                     sprintf(fname, "%s/coding/m%0*d%s", curdir, md,i, s2);
                     //fp2 = fopen(fname, "ab");
+                    fp2 = fopen(fname, "ab");
+                    fwrite(coding[i-1], sizeof(char), blocksize, fp2);
+                    fclose(fp2);
                 }
-                fp2 = fopen(fname, "ab");
-                fwrite(coding[i-1], sizeof(char), blocksize, fp2);
-                fclose(fp2);
+
+                if(new_m_size == 640 && disk_no > 1){
+                    new_m = (char*)malloc(sizeof(char)*(strlen(argv[1])+strlen(curdir)+12));
+                    sprintf(new_m, "%s/coding/m%0*d%s", curdir, md,i, s2);
+                    rename(fname,new_m);
+                }
             }
         }
 
