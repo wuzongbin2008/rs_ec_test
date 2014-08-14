@@ -40,9 +40,9 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
 OUT_RELEASE = bin/Release/van_encoder_incr
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/__/jerasure/galois.o $(OBJDIR_DEBUG)/__/jerasure/incr_encoder.o $(OBJDIR_DEBUG)/__/jerasure/jerasure_incr.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/__/jerasure/galois.o $(OBJDIR_DEBUG)/__/jerasure/jerasure_incr.o $(OBJDIR_DEBUG)/__/jerasure/van_encoder_incr.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/__/jerasure/galois.o $(OBJDIR_RELEASE)/__/jerasure/incr_encoder.o $(OBJDIR_RELEASE)/__/jerasure/jerasure_incr.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/__/jerasure/galois.o $(OBJDIR_RELEASE)/__/jerasure/jerasure_incr.o $(OBJDIR_RELEASE)/__/jerasure/van_encoder_incr.o
 
 all: debug release
 
@@ -62,11 +62,11 @@ out_debug: before_debug $(OBJ_DEBUG) $(DEP_DEBUG)
 $(OBJDIR_DEBUG)/__/jerasure/galois.o: ../jerasure/galois.c
 	$(CC) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../jerasure/galois.c -o $(OBJDIR_DEBUG)/__/jerasure/galois.o
 
-$(OBJDIR_DEBUG)/__/jerasure/incr_encoder.o: ../jerasure/incr_encoder.c
-	$(CC) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../jerasure/incr_encoder.c -o $(OBJDIR_DEBUG)/__/jerasure/incr_encoder.o
-
 $(OBJDIR_DEBUG)/__/jerasure/jerasure_incr.o: ../jerasure/jerasure_incr.c
 	$(CC) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../jerasure/jerasure_incr.c -o $(OBJDIR_DEBUG)/__/jerasure/jerasure_incr.o
+
+$(OBJDIR_DEBUG)/__/jerasure/van_encoder_incr.o: ../jerasure/van_encoder_incr.c
+	$(CC) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../jerasure/van_encoder_incr.c -o $(OBJDIR_DEBUG)/__/jerasure/van_encoder_incr.o
 
 clean_debug: 
 	rm -f $(OBJ_DEBUG) $(OUT_DEBUG)
@@ -87,11 +87,11 @@ out_release: before_release $(OBJ_RELEASE) $(DEP_RELEASE)
 $(OBJDIR_RELEASE)/__/jerasure/galois.o: ../jerasure/galois.c
 	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../jerasure/galois.c -o $(OBJDIR_RELEASE)/__/jerasure/galois.o
 
-$(OBJDIR_RELEASE)/__/jerasure/incr_encoder.o: ../jerasure/incr_encoder.c
-	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../jerasure/incr_encoder.c -o $(OBJDIR_RELEASE)/__/jerasure/incr_encoder.o
-
 $(OBJDIR_RELEASE)/__/jerasure/jerasure_incr.o: ../jerasure/jerasure_incr.c
 	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../jerasure/jerasure_incr.c -o $(OBJDIR_RELEASE)/__/jerasure/jerasure_incr.o
+
+$(OBJDIR_RELEASE)/__/jerasure/van_encoder_incr.o: ../jerasure/van_encoder_incr.c
+	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../jerasure/van_encoder_incr.c -o $(OBJDIR_RELEASE)/__/jerasure/van_encoder_incr.o
 
 clean_release: 
 	rm -f $(OBJ_RELEASE) $(OUT_RELEASE)

@@ -473,7 +473,7 @@ int main (int argc, char **argv)
                         mf_size = status.st_size;
                         coding[i] = (char *)malloc(sizeof(char)*blocksize);
                         r_count = fread(coding[i], sizeof(char), blocksize, fp2);
-                        if(r_count < mf_size)
+                        if(r_count < blocksize)
                         {
                             fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
                             exit(0);
@@ -518,15 +518,17 @@ int main (int argc, char **argv)
             else
             {
                 //sprintf(fname, "%s/Coding/%s_m%0*d%s", curdir, s1, md, i, s2);
-                sprintf(fname, "%s/coding/m%0*d%s", curdir, md,i, s2);
                 if (disk_no > 1)
                 {
-                    fp2 = fopen(fname, "wb");
+                    sprintf(fname, "%s/coding/m0%0*d%s", curdir, md,i, s2);
+                    //fp2 = fopen(fname, "wb");
                 }
                 else
                 {
-                    fp2 = fopen(fname, "ab");
+                    sprintf(fname, "%s/coding/m%0*d%s", curdir, md,i, s2);
+                    //fp2 = fopen(fname, "ab");
                 }
+                fp2 = fopen(fname, "ab");
                 fwrite(coding[i-1], sizeof(char), blocksize, fp2);
                 fclose(fp2);
             }
