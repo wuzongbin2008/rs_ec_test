@@ -258,6 +258,11 @@ int jerasure_matrix_decode(int k, int m, int w, int *matrix, int row_k_ones, int
             edd--;
         }
     }
+    for(i=0; i<k*k; i++)
+    {
+        printf("%d\t",decoding_matrix[i]);
+        if((i+1)%10 == 0) printf("\n");
+    }
 
     /* Then if necessary, decode drive lastdrive */
     if (edd > 0)
@@ -661,73 +666,140 @@ void jerasure_matrix_dotprod(int k, int w, int *matrix_row,int *src_ids, int des
         exit(1);
     }
 
-    i = disk_no;
     dptr = (dest_id < k) ? data_ptrs[dest_id] : coding_ptrs[dest_id-k];
 
     /* First copy or xor any data that does not need to be multiplied by a factor */
-    //for (i = 0; i < k; i++) {
-    if (matrix_row[i] == 1)
+    if (src_ids == NULL)
     {
-        if (src_ids == NULL)
+        i = disk_no;
+        if (matrix_row[i] == 1)
         {
-            sptr = data_ptrs[i];
-        }
-        else if (src_ids[i] < k)
-        {
-            sptr = data_ptrs[src_ids[i]];
-        }
-        else
-        {
-            sptr = coding_ptrs[src_ids[i]-k];
+            if (src_ids == NULL)
+            {
+                sptr = data_ptrs[i];
+            }
+            else if (src_ids[i] < k)
+            {
+                sptr = data_ptrs[src_ids[i]];
+            }
+            else
+            {
+                sptr = coding_ptrs[src_ids[i]-k];
+            }
+
+            if (init == 0)
+            {
+                memcpy(dptr, sptr, size);
+                jerasure_total_memcpy_bytes += size;
+                init = 1;
+            }
+            else
+            {
+                galois_region_xor(sptr, dptr, dptr, size);
+                jerasure_total_xor_bytes += size;
+            }
         }
 
-        if (init == 0)
+        /* Now do the data that needs to be multiplied by a factor */
+        if (matrix_row[i] != 0 && matrix_row[i] != 1)
         {
-            memcpy(dptr, sptr, size);
-            jerasure_total_memcpy_bytes += size;
+            if (src_ids == NULL)
+            {
+                sptr = data_ptrs[i];
+            }
+            else if (src_ids[i] < k)
+            {
+                sptr = data_ptrs[src_ids[i]];
+            }
+            else
+            {
+                sptr = coding_ptrs[src_ids[i]-k];
+            }
+
+            switch (w)
+            {
+            case 8:
+                galois_w08_region_multiply(sptr, matrix_row[i], size, dptr, init);
+                break;
+            case 16:
+                galois_w16_region_multiply(sptr, matrix_row[i], size, dptr, init);
+                break;
+            case 32:
+                galois_w32_region_multiply(sptr, matrix_row[i], size, dptr, init);
+                break;
+            }
+            jerasure_total_gf_bytes += size;
             init = 1;
         }
-        else
-        {
-            galois_region_xor(sptr, dptr, dptr, size);
-            jerasure_total_xor_bytes += size;
-        }
     }
-    //}
-
-    /* Now do the data that needs to be multiplied by a factor */
-    //for (i = 0; i < k; i++) {
-    if (matrix_row[i] != 0 && matrix_row[i] != 1)
+    else
     {
-        if (src_ids == NULL)
+        init = 0;
+        for (i = 0; i < k; i++)
         {
-            sptr = data_ptrs[i];
-        }
-        else if (src_ids[i] < k)
-        {
-            sptr = data_ptrs[src_ids[i]];
-        }
-        else
-        {
-            sptr = coding_ptrs[src_ids[i]-k];
+            if (matrix_row[i] == 1)
+            {
+                if (src_ids == NULL)
+                {
+                    sptr = data_ptrs[i];
+                }
+                else if (src_ids[i] < k)
+                {
+                    sptr = data_ptrs[src_ids[i]];
+                }
+                else
+                {
+                    sptr = coding_ptrs[src_ids[i]-k];
+                }
+
+                if (init == 0)
+                {
+                    memcpy(dptr, sptr, size);
+                    jerasure_total_memcpy_bytes += size;
+                    init = 1;
+                }
+                else
+                {
+                    galois_region_xor(sptr, dptr, dptr, size);
+                    jerasure_total_xor_bytes += size;
+                }
+            }
         }
 
-        switch (w)
-        {
-        case 8:
-            galois_w08_region_multiply(sptr, matrix_row[i], size, dptr, init);
-            break;
-        case 16:
-            galois_w16_region_multiply(sptr, matrix_row[i], size, dptr, init);
-            break;
-        case 32:
-            galois_w32_region_multiply(sptr, matrix_row[i], size, dptr, init);
-            break;
+        /* Now do the data that needs to be multiplied by a factor */
+        for (i = 0; i < k; i++) {
+            if (matrix_row[i] != 0 && matrix_row[i] != 1)
+            {
+                if (src_ids == NULL)
+                {
+                    sptr = data_ptrs[i];
+                }
+                else if (src_ids[i] < k)
+                {
+                    sptr = data_ptrs[src_ids[i]];
+                }
+                else
+                {
+                    sptr = coding_ptrs[src_ids[i]-k];
+                }
+
+                switch (w)
+                {
+                case 8:
+                    galois_w08_region_multiply(sptr, matrix_row[i], size, dptr, init);
+                    break;
+                case 16:
+                    galois_w16_region_multiply(sptr, matrix_row[i], size, dptr, init);
+                    break;
+                case 32:
+                    galois_w32_region_multiply(sptr, matrix_row[i], size, dptr, init);
+                    break;
+                }
+                jerasure_total_gf_bytes += size;
+                init = 1;
+            }
         }
-        jerasure_total_gf_bytes += size;
-        init = 1;
     }
-    //}
 
 }
 

@@ -8,18 +8,37 @@
 	</File>
 	<File name="../jerasure/van_decoder_incr.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6354" topLine="188" />
+			<Cursor1 position="4300" topLine="139" />
 		</Cursor>
 		<Folding>
+			<Collapse line="0" />
 			<Collapse line="27" />
 			<Collapse line="79" />
 			<Collapse line="130" />
 			<Collapse line="135" />
 			<Collapse line="140" />
+			<Collapse line="154" />
+			<Collapse line="158" />
+			<Collapse line="163" />
+			<Collapse line="182" />
+			<Collapse line="184" />
+			<Collapse line="188" />
+			<Collapse line="207" />
+			<Collapse line="211" />
+			<Collapse line="216" />
+			<Collapse line="218" />
+			<Collapse line="224" />
 			<Collapse line="229" />
+			<Collapse line="233" />
+			<Collapse line="239" />
 			<Collapse line="250" />
+			<Collapse line="252" />
+			<Collapse line="254" />
+			<Collapse line="258" />
+			<Collapse line="269" />
 			<Collapse line="273" />
 			<Collapse line="277" />
+			<Collapse line="285" />
 			<Collapse line="299" />
 			<Collapse line="303" />
 			<Collapse line="307" />

@@ -208,6 +208,8 @@ int main (int argc, char **argv)
     {
         blocksize = newsize;
     }
+    readins = 2;
+    origsize = 3200;
     while (n <= readins)
     {
         numerased = 0;
@@ -215,7 +217,7 @@ int main (int argc, char **argv)
         /* Open files, check for erasures, read in data/coding */
         for (i = 1; i <= k; i++)
         {
-            if(n == 1 && i == 1)
+            if(n == 1 && (i == 1 || i == 2))
             {
                 erased[i-1] = 1;
                 erasures[numerased] = i-1;
@@ -294,7 +296,7 @@ int main (int argc, char **argv)
 //		}
 
         /* Write decoded data to file */
-        sprintf(fname, "%s/coding/%d_decoded%s", curdir, n, cs2);
+        sprintf(fname, "%s/coding/%d_decoded%s", curdir, 1, cs2);
         fp = fopen(fname, "wb");
         if ((ret = access(fname, R_OK|W_OK)) == 0)
         {

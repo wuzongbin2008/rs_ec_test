@@ -86,10 +86,10 @@ int jfread(void *ptr, int size, int nmembers, FILE *stream)
 
 int main (int argc, char **argv)
 {
-    FILE *fp, *fp2;				    // file pointers
+    FILE *fp, *fp2,*m2_fp;				    // file pointers
     char *memblock;		            // reading in file
     char *block;				    // padding file
-    int size, newsize,mf_size,r_count;			// size of file and temp size
+    int size, newsize,mf_size,r_count,m2_size;			// size of file and temp size
     struct stat status;			    // finding file size
 
     enum Coding_Technique tech;		// coding technique (parameter)
@@ -469,16 +469,21 @@ int main (int argc, char **argv)
                     else
                     {
                         /* Determine original size of file */
-                        stat(fname, &status);
-                        mf_size = status.st_size;
+                        sprintf(fname, "%s/coding/m0%0*d%s", curdir, md,i, s2);
+                        m2_size = 0;
+                        if ((ret = access(fname, R_OK|W_OK)) == 0){
+                            stat(fname, &status);
+                            m2_size = status.st_size;
+                        }
                         coding[i] = (char *)malloc(sizeof(char)*blocksize);
+                        fseek(fp2, m2_size, SEEK_SET);
                         r_count = fread(coding[i], sizeof(char), blocksize, fp2);
                         if(r_count < blocksize)
                         {
-                            fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
+                            fprintf(stderr,  "read m%0*d failed\nmf_size = %d\nr_count = %d\n",md,i+1,m2_size,r_count);
                             exit(0);
                         }
-                        printf("read m%0*d \nmf_size = %d\nr_count = %d\n",md,i+1,mf_size,r_count);
+                        printf("read m%0*d \nmf_size = %d\nr_count = %d\n",md,i+1,m2_size,r_count);
                     }
                     fclose(fp2);
                 }
