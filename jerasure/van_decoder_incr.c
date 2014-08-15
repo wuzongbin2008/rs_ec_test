@@ -209,7 +209,7 @@ int main (int argc, char **argv)
         blocksize = newsize;
     }
     readins = 2;
-    origsize = 3200;
+    origsize = 320;
     while (n <= readins)
     {
         numerased = 0;
@@ -297,7 +297,6 @@ int main (int argc, char **argv)
 
         /* Write decoded data to file */
         sprintf(fname, "%s/coding/%d_decoded%s", curdir, 1, cs2);
-        fp = fopen(fname, "wb");
         if ((ret = access(fname, R_OK|W_OK)) == 0)
         {
             fp = fopen(fname, "ab");
