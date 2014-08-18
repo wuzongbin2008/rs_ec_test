@@ -120,7 +120,7 @@ int main (int argc, char **argv) {
 	/* Error checking parameters */
 	curdir = (char *)malloc(sizeof(char)*100);
 	//getcwd(curdir, 100);
-	curdir = "/project/c/rs_ec_test/bin/Debug";
+	curdir = "/project/c/rs_ec_test/van_encoder/bin/Debug";
 
 	/* Begin recreation of file names */
 	cs1 = (char*)malloc(sizeof(char)*strlen(argv[1]));
@@ -213,13 +213,6 @@ int main (int argc, char **argv) {
                 erased[i-1] = 1;
 				erasures[numerased] = i-1;
 				numerased++;
-
-//                sprintf(fname, "%s/Coding/k%0*d%s", curdir,md, i, cs2);
-//                fp = fopen(fname, "rb");
-//                stat(fname, &status);
-//                //blocksize = status.st_size;
-//                data[i-1] = (char *)malloc(sizeof(char)*blocksize);
-//                fread(data[i-1], sizeof(char), blocksize, fp);
             }
 			else {
                 //blocksize = 912000;
@@ -235,10 +228,9 @@ int main (int argc, char **argv) {
 				numerased++;
 			}
 			else {
-                    coding[i-1] = (char *)malloc(sizeof(char)*blocksize);
-					fseek(fp, blocksize*(n-1), SEEK_SET);
-					fread(coding[i-1], sizeof(char), blocksize, fp);
-
+                coding[i-1] = (char *)malloc(sizeof(char)*blocksize);
+                fseek(fp, blocksize*(n-1), SEEK_SET);
+                fread(coding[i-1], sizeof(char), blocksize, fp);
 				fclose(fp);
 			}
 		}
@@ -261,7 +253,7 @@ int main (int argc, char **argv) {
 		if (tech == Reed_Sol_Van || tech == Reed_Sol_R6_Op) {
 			i = jerasure_matrix_decode(k, m, w, matrix, 1, erasures, data, coding, blocksize);
 		}
-		else if (tech == Cauchy_Orig || tech == Cauchy_Good || tech == Liberation || tech == Blaum_Roth || tech == Liber8tion) {
+		else if (tech == Cauchy_Orig || tech == Cauchy_Good || tech == Liberation || tech == Blaum_Roth || tech == Liber8tion)        {
 			i = jerasure_schedule_decode_lazy(k, m, w, bitmatrix, erasures, data, coding, blocksize, packetsize, 1);
 		}
 		else {
