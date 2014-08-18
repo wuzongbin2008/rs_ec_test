@@ -208,8 +208,9 @@ int main (int argc, char **argv)
     {
         blocksize = newsize;
     }
-    readins = 2;
+    readins = 4;
     origsize = 320;
+    blocksize = 320;
     while (n <= readins)
     {
         numerased = 0;
@@ -217,7 +218,7 @@ int main (int argc, char **argv)
         /* Open files, check for erasures, read in data/coding */
         for (i = 1; i <= k; i++)
         {
-            if(n == 1 && (i == 1 || i == 2))
+            if(i == 1)
             {
                 erased[i-1] = 1;
                 erasures[numerased] = i-1;
