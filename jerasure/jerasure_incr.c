@@ -258,11 +258,11 @@ int jerasure_matrix_decode(int k, int m, int w, int *matrix, int row_k_ones, int
             edd--;
         }
     }
-    for(i=0; i<k*k; i++)
-    {
-        printf("%d\t",decoding_matrix[i]);
-        if((i+1)%10 == 0) printf("\n");
-    }
+//    for(i=0; i<k*k; i++)
+//    {
+//        printf("%d\t",decoding_matrix[i]);
+//        if((i+1)%10 == 0) printf("\n");
+//    }
 
     /* Then if necessary, decode drive lastdrive */
     if (edd > 0)

@@ -469,7 +469,7 @@ int main (int argc, char **argv)
                     else
                     {
                         /* Determine original size of file */
-                        sprintf(fname, "%s/coding/m0%0*d%s", curdir, md,i, s2);
+                        sprintf(fname, "%s/coding/m0%0*d%s", curdir, md,i+1, s2);
                         m2_size = 0;
                         if ((ret = access(fname, R_OK|W_OK)) == 0){
                             stat(fname, &status);

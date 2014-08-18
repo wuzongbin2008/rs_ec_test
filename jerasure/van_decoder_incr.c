@@ -109,6 +109,7 @@ int main (int argc, char **argv)
     double tsec;
     double totalsec;
     char t;
+    int erased_total[2] = {0,0};
 
     signal(SIGQUIT, ctrl_bs_handler);
 
@@ -203,13 +204,8 @@ int main (int argc, char **argv)
 
     /* Start decoding */
     int er_file_no;
-    readins = origsize/buffersize;
-    if (buffersize == origsize)
-    {
-        blocksize = newsize;
-    }
-    readins = 4;
-    origsize = 320;
+    readins = 2;
+    origsize = 320 * readins;
     blocksize = 320;
     while (n <= readins)
     {
@@ -218,7 +214,7 @@ int main (int argc, char **argv)
         /* Open files, check for erasures, read in data/coding */
         for (i = 1; i <= k; i++)
         {
-            if(i == 1)
+            if(i == 1 || i == 2)
             {
                 erased[i-1] = 1;
                 erasures[numerased] = i-1;
@@ -250,8 +246,8 @@ int main (int argc, char **argv)
         }
 
         /* Finish allocating data/coding if needed */
-        if (n == 1)
-        {
+//        if (n == 1)
+//        {
             for (i = 0; i < numerased; i++)
             {
                 if (erasures[i] < k)
@@ -263,7 +259,7 @@ int main (int argc, char **argv)
                     coding[erasures[i]-k] = (char *)malloc(sizeof(char)*blocksize);
                 }
             }
-        }
+        //}
 
         erasures[numerased] = -1;
         gettimeofday(&t3, &tz);
@@ -296,41 +292,43 @@ int main (int argc, char **argv)
 //            printf("n = %d\ndata[%d] = %s\nlen = %d\n\n",n,i,data[i],strlen(data[i]));
 //		}
 
-        /* Write decoded data to file */
-        sprintf(fname, "%s/coding/%d_decoded%s", curdir, 1, cs2);
-        if ((ret = access(fname, R_OK|W_OK)) == 0)
-        {
-            fp = fopen(fname, "ab");
-        }
-        else
-        {
-            fp = fopen(fname, "wb");
-        }
         for (i = 0; i < k; i++)
         {
-            if (total+blocksize <= origsize)
-            {
-                fwrite(data[i], sizeof(char), blocksize, fp);
-                total+= blocksize;
-            }
-            else
-            {
-                for (j = 0; j < blocksize; j++)
+            if(erased[i]){
+                /* Write decoded data to file */
+                sprintf(fname, "%s/coding/%d_decoded%s", curdir, i+1, cs2);
+                if ((ret = access(fname, R_OK|W_OK)) == 0)
                 {
-                    if (total < origsize)
-                    {
-                        fprintf(fp, "%c", data[i][j]);
-                        total++;
-                    }
-                    else
-                    {
-                        break;
-                    }
-
+                    fp = fopen(fname, "ab");
                 }
+                else
+                {
+                    fp = fopen(fname, "wb");
+                }
+                if (erased_total[i]+blocksize <= origsize)
+                {
+                    fwrite(data[i], sizeof(char), blocksize, fp);
+                    erased_total[i]+= blocksize;
+                }
+                else
+                {
+                    for (j = 0; j < blocksize; j++)
+                    {
+                        if (total < origsize)
+                        {
+                            fprintf(fp, "%c", data[i][j]);
+                            total++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+
+                    }
+                }
+                fclose(fp);
             }
         }
-        fclose(fp);
 
         n++;
         tsec = 0.0;
