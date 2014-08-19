@@ -74,12 +74,7 @@ int main (int argc, char **argv) {
 	char **coding;
 	int *erasures;
 	int *erased;
-    /* Vandermonde matrix */
-	int matrix[3][10] = {
-	    {1,1,1,1,1,1	,1,1	,1,1	},
-	    {1,147,138,73,93	,161,103,58,99,178},
-	    {1,220,166,123,82,143,245,40,167,122}
-	};//*matrix;
+	int *matrix;
 	int *bitmatrix;
 
 	/* Parameters */
@@ -120,7 +115,7 @@ int main (int argc, char **argv) {
 	/* Error checking parameters */
 	curdir = (char *)malloc(sizeof(char)*100);
 	//getcwd(curdir, 100);
-	curdir = "/project/c/rs_ec_test/van_encoder/bin/Debug";
+	curdir = "/project/c/rs_ec_test/cauchy_encoder/bin/Debug";
 
 	/* Begin recreation of file names */
 	cs1 = (char*)malloc(sizeof(char)*strlen(argv[1]));
@@ -187,6 +182,43 @@ int main (int argc, char **argv) {
 	sprintf(temp, "%d", k);
 	md = strlen(temp);
 	gettimeofday(&t3, &tz);
+
+	/* Create coding matrix or bitmatrix */
+    switch(tech)
+    {
+    case No_Coding:
+        break;
+    case Reed_Sol_Van:
+        matrix = reed_sol_vandermonde_coding_matrix(k, m, w);
+        break;
+    case Reed_Sol_R6_Op:
+        matrix = reed_sol_r6_coding_matrix(k, w);
+        break;
+    case Cauchy_Orig:
+        matrix = cauchy_original_coding_matrix(k, m, w);
+        bitmatrix = jerasure_matrix_to_bitmatrix(k, m, w, matrix);
+        break;
+    case Cauchy_Good:
+        matrix = cauchy_good_general_coding_matrix(k, m, w);
+        bitmatrix = jerasure_matrix_to_bitmatrix(k, m, w, matrix);
+        break;
+    case Liberation:
+        bitmatrix = liberation_coding_bitmatrix(k, w);
+        break;
+    case Blaum_Roth:
+        bitmatrix = blaum_roth_coding_bitmatrix(k, w);
+        break;
+    case Liber8tion:
+        bitmatrix = liber8tion_coding_bitmatrix(k);
+    }
+    gettimeofday(&t4, &tz);
+    tsec = 0.0;
+    tsec += t4.tv_usec;
+    tsec -= t3.tv_usec;
+    tsec /= 1000000.0;
+    tsec += t4.tv_sec;
+    tsec -= t3.tv_sec;
+    totalsec += tsec;
 
 	/* Begin decoding process */
 	total = 0;

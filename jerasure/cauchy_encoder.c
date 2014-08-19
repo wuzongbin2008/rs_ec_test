@@ -249,6 +249,110 @@ int main (int argc, char **argv)
             exit(0);
         }
     }
+    else if (strcmp(argv[4], "reed_sol_r6_op") == 0)
+    {
+        if (m != 2)
+        {
+            fprintf(stderr,  "m must be equal to 2\n");
+            exit(0);
+        }
+        if (w != 8 && w != 16 && w != 32)
+        {
+            fprintf(stderr,  "w must be one of {8, 16, 32}\n");
+            exit(0);
+        }
+        tech = Reed_Sol_R6_Op;
+    }
+    else if (strcmp(argv[4], "cauchy_orig") == 0)
+    {
+        tech = Cauchy_Orig;
+        if (packetsize == 0)
+        {
+            fprintf(stderr, "Must include packetsize.\n");
+            exit(0);
+        }
+    }
+    else if (strcmp(argv[4], "cauchy_good") == 0)
+    {
+        tech = Cauchy_Good;
+        if (packetsize == 0)
+        {
+            fprintf(stderr, "Must include packetsize.\n");
+            exit(0);
+        }
+    }
+    else if (strcmp(argv[4], "liberation") == 0)
+    {
+        if (k > w)
+        {
+            fprintf(stderr,  "k must be less than or equal to w\n");
+            exit(0);
+        }
+        if (w <= 2 || !(w%2) || !is_prime(w))
+        {
+            fprintf(stderr,  "w must be greater than two and w must be prime\n");
+            exit(0);
+        }
+        if (packetsize == 0)
+        {
+            fprintf(stderr, "Must include packetsize.\n");
+            exit(0);
+        }
+        if ((packetsize%(sizeof(int))) != 0)
+        {
+            fprintf(stderr,  "packetsize must be a multiple of sizeof(int)\n");
+            exit(0);
+        }
+        tech = Liberation;
+    }
+    else if (strcmp(argv[4], "blaum_roth") == 0)
+    {
+        if (k > w)
+        {
+            fprintf(stderr,  "k must be less than or equal to w\n");
+            exit(0);
+        }
+        if (w <= 2 || !((w+1)%2) || !is_prime(w+1))
+        {
+            fprintf(stderr,  "w must be greater than two and w+1 must be prime\n");
+            exit(0);
+        }
+        if (packetsize == 0)
+        {
+            fprintf(stderr, "Must include packetsize.\n");
+            exit(0);
+        }
+        if ((packetsize%(sizeof(int))) != 0)
+        {
+            fprintf(stderr,  "packetsize must be a multiple of sizeof(int)\n");
+            exit(0);
+        }
+        tech = Blaum_Roth;
+    }
+    else if (strcmp(argv[4], "liber8tion") == 0)
+    {
+        if (packetsize == 0)
+        {
+            fprintf(stderr, "Must include packetsize\n");
+            exit(0);
+        }
+        if (w != 8)
+        {
+            fprintf(stderr, "w must equal 8\n");
+            exit(0);
+        }
+        if (m != 2)
+        {
+            fprintf(stderr, "m must equal 2\n");
+            exit(0);
+        }
+        if (k > w)
+        {
+            fprintf(stderr, "k must be less than or equal to w\n");
+            exit(0);
+        }
+        tech = Liber8tion;
+    }
     else
     {
         fprintf(stderr,  "Not a valid coding technique. Choose one of the following: reed_sol_van, reed_sol_r6_op, cauchy_orig, cauchy_good, liberation, blaum_roth, liber8tion, no_coding\n");

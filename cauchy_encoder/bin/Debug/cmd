@@ -4,9 +4,9 @@ RS Coding:
 	usage: inputfile k m coding_technique w (packetsize) (buffersize)\n
 
 "reed_sol_van":
-        ./van_encoder_incr 1.txt 10 3 reed_sol_van 8 1 11 1
-	./van_encoder_incr 1.pdf 10 3 reed_sol_van 8 1 911783 1
-	./van_encoder_incr 1.txt 10 3 reed_sol_van 8 1 316 1
+        ./cauchy_encoder 1.txt 10 3 cauchy_good 8 1 11 
+	./cauchy_encoder 1.pdf 10 3 cauchy_good 8 1 911783 
+	./cauchy_encoder 1.txt 10 3 cauchy_good 8 1 316 
 	Time taken to encode file  total size 208621663 is 13.8440492153
 	Encoding (MB/sec): 14.3021739464
 	En_Total (MB/sec): 1.1179648319
