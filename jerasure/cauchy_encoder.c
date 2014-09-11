@@ -456,7 +456,7 @@ int main (int argc, char **argv)
         readins = 1;
         buffersize = size;
         block = (char *)malloc(sizeof(char)*newsize);
-        blocksize = newsize;
+        //blocksize = newsize;
     }
 
     /* Break inputfile name into the filename and extension */
@@ -575,7 +575,7 @@ int main (int argc, char **argv)
         case No_Coding:
             break;
         case Reed_Sol_Van:
-            jerasure_matrix_encode(k, m, w, matrix, data, coding, blocksize,1);
+            jerasure_matrix_encode(k, m, w, matrix, data, coding, blocksize);
             break;
         case Reed_Sol_R6_Op:
             reed_sol_r6_encode(k, w, data, coding, blocksize);

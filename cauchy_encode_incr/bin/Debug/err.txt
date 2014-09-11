@@ -1,0 +1,814 @@
+==20129== Memcheck, a memory error detector
+==20129== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==20129== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==20129== Command: ./van_encoder_incr 1.txt 10 3 reed_sol_van 8 1 316
+==20129== 
+==20129== Invalid write of size 1
+==20129==    at 0x3B6B469917: vsprintf (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B44F5B7: sprintf (in /lib64/libc-2.12.so)
+==20129==    by 0x4039D2: main (incr_encoder.c:400)
+==20129==  Address 0x4c1e94f is 0 bytes after a block of size 63 alloc'd
+==20129==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==20129==    by 0x403922: main (incr_encoder.c:389)
+==20129== 
+==20129== Syscall param access(pathname) points to unaddressable byte(s)
+==20129==    at 0x3B6B4DB7F7: access (in /lib64/libc-2.12.so)
+==20129==    by 0x4039E3: main (incr_encoder.c:401)
+==20129==  Address 0x4c1e94f is 0 bytes after a block of size 63 alloc'd
+==20129==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==20129==    by 0x403922: main (incr_encoder.c:389)
+==20129== 
+==20129== Syscall param open(filename) points to unaddressable byte(s)
+==20129==    at 0x3B6B4DB550: __open_nocancel (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B472DEE: _IO_file_fopen@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467225: __fopen_internal (in /lib64/libc-2.12.so)
+==20129==    by 0x403A04: main (incr_encoder.c:403)
+==20129==  Address 0x4c1e94f is 0 bytes after a block of size 63 alloc'd
+==20129==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==20129==    by 0x403922: main (incr_encoder.c:389)
+==20129== 
+==20129== Syscall param stat(file_name) points to unaddressable byte(s)
+==20129==    at 0x3B6B4DB075: _xstat (in /lib64/libc-2.12.so)
+==20129==    by 0x403A57: main (incr_encoder.c:412)
+==20129==  Address 0x4c1e94f is 0 bytes after a block of size 63 alloc'd
+==20129==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==20129==    by 0x403922: main (incr_encoder.c:389)
+==20129== 
+==20129== Invalid read of size 2
+==20129==    at 0x3B6B467704: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f500 is 0 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B46770A: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f588 is 136 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B46771A: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5e8 is 232 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B46773C: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5e0 is 224 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B467745: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f588 is 136 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B46774C: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5e8 is 232 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B467750: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5e4 is 228 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B473B10: _IO_sgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5d8 is 216 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B47183E: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f538 is 56 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B4719B0: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f548 is 72 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B473A81: _IO_doallocbuf (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B4719CB: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f538 is 56 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 1
+==20129==    at 0x3B6B473A90: _IO_doallocbuf (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B4719CB: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f500 is 0 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B473A9F: _IO_doallocbuf (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B4719CB: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5d8 is 216 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B46657C: _IO_file_doallocate (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B473AAB: _IO_doallocbuf (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B4719CB: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f570 is 112 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B474731: _IO_setb (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B466605: _IO_file_doallocate (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B473AAB: _IO_doallocbuf (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B4719CB: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f538 is 56 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B474744: _IO_setb (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B466605: _IO_file_doallocate (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B473AAB: _IO_doallocbuf (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B4719CB: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f538 is 56 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B474748: _IO_setb (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B466605: _IO_file_doallocate (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B473AAB: _IO_doallocbuf (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B4719CB: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f540 is 64 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B474760: _IO_setb (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B466605: _IO_file_doallocate (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B473AAB: _IO_doallocbuf (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B4719CB: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f500 is 0 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B471858: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f508 is 8 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B47185C: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f510 is 16 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B471875: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f500 is 0 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B471880: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f538 is 56 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B471889: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f540 is 64 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B474D81: __underflow (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5c0 is 192 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B474D98: __underflow (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f500 is 0 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B474D9F: __underflow (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f508 is 8 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B474DA3: __underflow (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f510 is 16 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B474DAC: __underflow (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f500 is 0 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B474DB3: __underflow (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f560 is 96 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B474DBA: __underflow (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f548 is 72 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B474DC9: __underflow (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5d8 is 216 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B471EB9: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f500 is 0 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B471EC3: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f508 is 8 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B471EC7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f510 is 16 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B471ED1: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f538 is 56 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B4739D0: _IO_switch_to_get_mode (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FB7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f528 is 40 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B4739D4: _IO_switch_to_get_mode (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FB7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f520 is 32 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B4739DE: _IO_switch_to_get_mode (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FB7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f500 is 0 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B4739E5: _IO_switch_to_get_mode (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FB7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f510 is 16 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B4739E9: _IO_switch_to_get_mode (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FB7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f538 is 56 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B4739ED: _IO_switch_to_get_mode (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FB7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f518 is 24 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B4739F7: _IO_switch_to_get_mode (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FB7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f500 is 0 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B4739FD: _IO_switch_to_get_mode (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FB7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f508 is 8 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B473A01: _IO_switch_to_get_mode (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FB7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f530 is 48 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B473A05: _IO_switch_to_get_mode (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FB7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f528 is 40 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B473A09: _IO_switch_to_get_mode (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FB7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f520 is 32 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B471FB8: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f538 is 56 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B471FBC: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f540 is 64 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B471FC3: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5d8 is 216 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B471FCD: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f508 is 8 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B471FD1: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f518 is 24 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B471FD5: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f510 is 16 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B471FD9: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f530 is 48 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B471FDD: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f528 is 40 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B471FE1: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f520 is 32 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 1
+==20129==    at 0x3B6B471E84: _IO_file_read (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FE7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f574 is 116 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B471E8A: _IO_file_read (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471FE7: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f570 is 112 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Warning: invalid file descriptor -1 in syscall read()
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B472070: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471987: _IO_file_xsgetn (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467761: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f500 is 0 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 2
+==20129==    at 0x3B6B467762: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f500 is 0 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 8
+==20129==    at 0x3B6B46776B: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f588 is 136 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B467772: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5e4 is 228 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 4
+==20129==    at 0x3B6B46777A: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5e4 is 228 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 8
+==20129==    at 0x3B6B46777F: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5e8 is 232 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid read of size 4
+==20129==    at 0x3B6B46779B: fread (in /lib64/libc-2.12.so)
+==20129==    by 0x402C08: jfread (incr_encoder.c:78)
+==20129==    by 0x403CF3: main (incr_encoder.c:450)
+==20129==  Address 0x4c1f5e0 is 224 bytes inside a block of size 568 free'd
+==20129==    at 0x4A063F0: free (vg_replace_malloc.c:446)
+==20129==    by 0x3B6B4667CC: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403B63: main (incr_encoder.c:423)
+==20129== 
+==20129== Invalid write of size 1
+==20129==    at 0x3B6B469917: vsprintf (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B44F5B7: sprintf (in /lib64/libc-2.12.so)
+==20129==    by 0x403F05: main (incr_encoder.c:491)
+==20129==  Address 0x4c1e94f is 0 bytes after a block of size 63 alloc'd
+==20129==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==20129==    by 0x403922: main (incr_encoder.c:389)
+==20129== 
+==20129== Syscall param access(pathname) points to unaddressable byte(s)
+==20129==    at 0x3B6B4DB7F7: access (in /lib64/libc-2.12.so)
+==20129==    by 0x403F16: main (incr_encoder.c:492)
+==20129==  Address 0x4c1e94f is 0 bytes after a block of size 63 alloc'd
+==20129==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==20129==    by 0x403922: main (incr_encoder.c:389)
+==20129== 
+==20129== Syscall param open(filename) points to unaddressable byte(s)
+==20129==    at 0x3B6B4DB550: __open_nocancel (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B472DEE: _IO_file_fopen@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467225: __fopen_internal (in /lib64/libc-2.12.so)
+==20129==    by 0x403F33: main (incr_encoder.c:494)
+==20129==  Address 0x4c1e94f is 0 bytes after a block of size 63 alloc'd
+==20129==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==20129==    by 0x403922: main (incr_encoder.c:389)
+==20129== 
+==20129== Syscall param write(buf) points to uninitialised byte(s)
+==20129==    at 0x3B6B4DB7A0: __write_nocancel (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B471DD2: _IO_file_write@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B473384: _IO_do_write@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B472B5F: _IO_file_close_it@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B4667F7: fclose@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x403F9A: main (incr_encoder.c:501)
+==20129==  Address 0x4c0e000 is not stack'd, malloc'd or (recently) free'd
+==20129== 
+==20129== Invalid write of size 1
+==20129==    at 0x3B6B469917: vsprintf (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B44F5B7: sprintf (in /lib64/libc-2.12.so)
+==20129==    by 0x404016: main (incr_encoder.c:513)
+==20129==  Address 0x4c1e94f is 0 bytes after a block of size 63 alloc'd
+==20129==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==20129==    by 0x403922: main (incr_encoder.c:389)
+==20129== 
+==20129== Syscall param access(pathname) points to unaddressable byte(s)
+==20129==    at 0x3B6B4DB7F7: access (in /lib64/libc-2.12.so)
+==20129==    by 0x404027: main (incr_encoder.c:514)
+==20129==  Address 0x4c1e94f is 0 bytes after a block of size 63 alloc'd
+==20129==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==20129==    by 0x403922: main (incr_encoder.c:389)
+==20129== 
+==20129== Syscall param open(filename) points to unaddressable byte(s)
+==20129==    at 0x3B6B4DB550: __open_nocancel (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B472DEE: _IO_file_fopen@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==20129==    by 0x3B6B467225: __fopen_internal (in /lib64/libc-2.12.so)
+==20129==    by 0x404044: main (incr_encoder.c:516)
+==20129==  Address 0x4c1e94f is 0 bytes after a block of size 63 alloc'd
+==20129==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==20129==    by 0x403922: main (incr_encoder.c:389)
+==20129== 
+read m01 
+mf_size = 320
+r_count = 320
+read m02 
+mf_size = 320
+r_count = 320
+read m03 
+mf_size = 320
+r_count = 320
+Time taken to encode file  total size 316 is 0.0057580471
+Encoding (MB/sec): 0.0000000000
+En_Total (MB/sec): 0.0000000000
+==20129== 
+==20129== HEAP SUMMARY:
+==20129==     in use at exit: 5,535 bytes in 16 blocks
+==20129==   total heap usage: 29 allocs, 13 frees, 11,491 bytes allocated
+==20129== 
+==20129== LEAK SUMMARY:
+==20129==    definitely lost: 167 bytes in 3 blocks
+==20129==    indirectly lost: 4,800 bytes in 12 blocks
+==20129==      possibly lost: 0 bytes in 0 blocks
+==20129==    still reachable: 568 bytes in 1 blocks
+==20129==         suppressed: 0 bytes in 0 blocks
+==20129== Rerun with --leak-check=full to see details of leaked memory
+==20129== 
+==20129== For counts of detected and suppressed errors, rerun with: -v
+==20129== Use --track-origins=yes to see where uninitialised values come from
+==20129== ERROR SUMMARY: 98 errors from 75 contexts (suppressed: 6 from 6)

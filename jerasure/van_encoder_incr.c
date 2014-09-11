@@ -302,7 +302,6 @@ int main (int argc, char **argv)
     newsize = size;
 
     /* Find new size by determining next closest multiple */
-    int test1=0,test2=0;
     if (packetsize != 0)
     {
         if (size%(k*w*packetsize*sizeof(int)) != 0)
@@ -310,7 +309,6 @@ int main (int argc, char **argv)
             while (newsize%(k*w*packetsize*sizeof(int)) != 0)
             {
                 newsize++;
-                test1++;
             }
         }
     }
@@ -328,10 +326,8 @@ int main (int argc, char **argv)
         while (newsize%buffersize != 0)
         {
             newsize++;
-            test2++;
         }
     }
-    //printf("test1 = %d\ntest2 = %d\n",test1,test2);
 
     /* Determine size of k+m files */
     blocksize = newsize/k;

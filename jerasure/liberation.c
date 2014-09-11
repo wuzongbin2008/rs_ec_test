@@ -48,8 +48,9 @@ int *liberation_coding_bitmatrix(int k, int w)
   matrix = talloc(int, 2*k*w*w);
   if (matrix == NULL) return NULL;
   bzero(matrix, sizeof(int)*2*k*w*w);
-
+  
   /* Set up identity matrices */
+
   for(i = 0; i < w; i++) {
     index = i*k*w+i;
     for (j = 0; j < k; j++) {
@@ -59,6 +60,7 @@ int *liberation_coding_bitmatrix(int k, int w)
   }
 
   /* Set up liberation matrices */
+
   for (j = 0; j < k; j++) {
     index = k*w*w+j*w;
     for (i = 0; i < w; i++) {
@@ -70,10 +72,9 @@ int *liberation_coding_bitmatrix(int k, int w)
       matrix[k*w*w+j*w+i*k*w+(i+j-1)%w] = 1;
     }
   }
-
   return matrix;
 }
-
+  
 
 int *liber8tion_coding_bitmatrix(int k)
 {
@@ -85,7 +86,7 @@ int *liber8tion_coding_bitmatrix(int k)
   matrix = talloc(int, 2*k*w*w);
   if (matrix == NULL) return NULL;
   bzero(matrix, sizeof(int)*2*k*w*w);
-
+  
   /* Set up identity matrices */
 
   for(i = 0; i < w; i++) {
@@ -189,7 +190,7 @@ int *liber8tion_coding_bitmatrix(int k)
 
   return matrix;
 }
-
+  
 int *blaum_roth_coding_bitmatrix(int k, int w)
 {
   int *matrix, i, j, index, l, m, p;
@@ -199,7 +200,7 @@ int *blaum_roth_coding_bitmatrix(int k, int w)
   matrix = talloc(int, 2*k*w*w);
   if (matrix == NULL) return NULL;
   bzero(matrix, sizeof(int)*2*k*w*w);
-
+  
   /* Set up identity matrices */
 
   for(i = 0; i < w; i++) {

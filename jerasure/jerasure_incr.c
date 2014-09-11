@@ -1431,17 +1431,11 @@ void jerasure_do_scheduled_operations(char **ptrs, int **operations, int packets
         dptr = ptrs[operations[op][2]] + operations[op][3]*packetsize;
         if (operations[op][4])
         {
-            /*      printf("%d,%d %d,%d\n", operations[op][0],
-                  operations[op][1],
-                  operations[op][2],
-                  operations[op][3]);
-                  printf("xor(0x%x, 0x%x -> 0x%x, %d)\n", sptr, dptr, dptr, packetsize); */
             galois_region_xor(sptr, dptr, dptr, packetsize);
             jerasure_total_xor_bytes += packetsize;
         }
         else
         {
-            /*      printf("memcpy(0x%x <- 0x%x)\n", dptr, sptr); */
             memcpy(dptr, sptr, packetsize);
             jerasure_total_memcpy_bytes += packetsize;
         }

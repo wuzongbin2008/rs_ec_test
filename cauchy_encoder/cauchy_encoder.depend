@@ -1,0 +1,66 @@
+# depslib dependency file v1.0
+1403504698 source:/project/c/rs_ec_test/jerasure/cauchy.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"galois.h"
+	"jerasure.h"
+	"cauchy.h"
+
+1403504698 /project/c/rs_ec_test/jerasure/galois.h
+	<stdio.h>
+	<stdlib.h>
+
+1406165659 /project/c/rs_ec_test/jerasure/jerasure.h
+	"galois.h"
+
+1403504698 /project/c/rs_ec_test/jerasure/cauchy.h
+
+1409025499 source:/project/c/rs_ec_test/jerasure/cauchy_encoder.c
+	<sys/time.h>
+	<sys/stat.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<errno.h>
+	<signal.h>
+	<unistd.h>
+	"jerasure.h"
+	"reed_sol.h"
+	"galois.h"
+	"cauchy.h"
+	"liberation.h"
+
+1403504698 /project/c/rs_ec_test/jerasure/reed_sol.h
+
+1403504698 /project/c/rs_ec_test/jerasure/liberation.h
+
+1406606115 source:/project/c/rs_ec_test/jerasure/galois.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"galois.h"
+
+1406770895 source:/project/c/rs_ec_test/jerasure/jerasure.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"galois.h"
+	"jerasure.h"
+
+1405311956 source:/project/c/rs_ec_test/jerasure/liberation.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"galois.h"
+	"jerasure.h"
+	"liberation.h"
+
+1405589393 source:/project/c/rs_ec_test/jerasure/reed_sol.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"galois.h"
+	"jerasure.h"
+	"reed_sol.h"
+
