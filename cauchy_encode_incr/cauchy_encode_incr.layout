@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="../jerasure/cauchy_encoder_incr.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="18177" topLine="265" />
+		</Cursor>
+		<Folding>
+			<Collapse line="0" />
+			<Collapse line="28" />
+			<Collapse line="33" />
+			<Collapse line="74" />
+			<Collapse line="142" />
+			<Collapse line="150" />
+			<Collapse line="155" />
+			<Collapse line="160" />
+			<Collapse line="165" />
+			<Collapse line="169" />
+			<Collapse line="171" />
+			<Collapse line="177" />
+			<Collapse line="182" />
+			<Collapse line="189" />
+			<Collapse line="191" />
+			<Collapse line="195" />
+			<Collapse line="198" />
+			<Collapse line="203" />
+			<Collapse line="207" />
+			<Collapse line="209" />
+			<Collapse line="215" />
+			<Collapse line="219" />
+			<Collapse line="224" />
+			<Collapse line="228" />
+			<Collapse line="236" />
+			<Collapse line="240" />
+			<Collapse line="243" />
+			<Collapse line="249" />
+			<Collapse line="251" />
+			<Collapse line="256" />
+			<Collapse line="263" />
+			<Collapse line="266" />
+			<Collapse line="272" />
+			<Collapse line="275" />
+			<Collapse line="281" />
+			<Collapse line="283" />
+			<Collapse line="288" />
+			<Collapse line="293" />
+			<Collapse line="298" />
+			<Collapse line="305" />
+			<Collapse line="307" />
+			<Collapse line="312" />
+			<Collapse line="317" />
+			<Collapse line="322" />
+			<Collapse line="329" />
+			<Collapse line="331" />
+			<Collapse line="336" />
+			<Collapse line="341" />
+			<Collapse line="346" />
+			<Collapse line="353" />
+			<Collapse line="367" />
+			<Collapse line="371" />
+			<Collapse line="379" />
+			<Collapse line="390" />
+			<Collapse line="392" />
+			<Collapse line="403" />
+			<Collapse line="405" />
+			<Collapse line="407" />
+			<Collapse line="413" />
+			<Collapse line="415" />
+			<Collapse line="422" />
+			<Collapse line="424" />
+			<Collapse line="434" />
+			<Collapse line="437" />
+			<Collapse line="441" />
+			<Collapse line="448" />
+			<Collapse line="459" />
+			<Collapse line="464" />
+			<Collapse line="469" />
+			<Collapse line="475" />
+			<Collapse line="488" />
+			<Collapse line="495" />
+			<Collapse line="549" />
+			<Collapse line="552" />
+			<Collapse line="557" />
+			<Collapse line="559" />
+			<Collapse line="566" />
+			<Collapse line="578" />
+			<Collapse line="605" />
+			<Collapse line="614" />
+			<Collapse line="654" />
+			<Collapse line="658" />
+			<Collapse line="666" />
+			<Collapse line="676" />
+			<Collapse line="686" />
+			<Collapse line="715" />
+			<Collapse line="719" />
+			<Collapse line="759" />
+			<Collapse line="760" />
+			<Collapse line="766" />
+			<Collapse line="768" />
+			<Collapse line="771" />
+			<Collapse line="780" />
+		</Folding>
+	</File>
+</CodeBlocks_layout_file>
