@@ -536,7 +536,8 @@ int main (int argc, char **argv)
     total = 0;
 
     /* Start encoding */
-    blocksize = 320;
+    readins = 1;
+    blocksize = 10;//320;
     while (n <= readins)
     {
         /* Check if padding is needed, if so, add appropriate number of zeros */
@@ -564,13 +565,23 @@ int main (int argc, char **argv)
         /* Set pointers to point to file data */
         for (i = 0; i < k; i++)
         {
-            if(i== (disk_no - 1))
+//            if(i== (disk_no - 1))
+//            {
+//                data[disk_no - 1] = block;
+//            }
+//            else
+//            {
+//                data[i] = (char *)calloc(blocksize,sizeof(char));
+//            }
+
+            data[i] = ( char  *)calloc(blocksize,sizeof( char ));
+            if(i==0 && disk_no == 1)
             {
-                data[disk_no - 1] = block;
+                data[i] = "abcdefghij";
             }
-            else
+            if(i==1 && disk_no == 2)
             {
-                data[i] = (char *)calloc(blocksize,sizeof(char));
+                data[i] = "klmnopqrst";
             }
         }
 
