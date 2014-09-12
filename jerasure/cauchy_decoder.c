@@ -230,7 +230,7 @@ int main (int argc, char **argv) {
     if (buffersize == origsize) {
         blocksize = newsize;
     }
-    while (n <= 2) {
+    while (n <= 1) {
 
 		numerased = 0;
 

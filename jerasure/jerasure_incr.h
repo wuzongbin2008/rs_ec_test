@@ -132,7 +132,7 @@ void jerasure_bitmatrix_encode(int k, int m, int w, int *bitmatrix,
                             char **data_ptrs, char **coding_ptrs, int size, int packetsize);
 
 void jerasure_schedule_encode(int k, int m, int w, int **schedule,
-                                  char **data_ptrs, char **coding_ptrs, int size, int packetsize);
+                                  char **data_ptrs, char **coding_ptrs, int size, int packetsize,int disk_no);
 
 /* ------------------------------------------------------------ */
 /* Decoding. -------------------------------------------------- */

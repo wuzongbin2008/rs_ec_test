@@ -10,9 +10,14 @@
 			<Collapse line="445" />
 		</Folding>
 	</File>
+	<File name="../jerasure/jerasure.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="29154" topLine="1100" />
+		</Cursor>
+	</File>
 	<File name="../jerasure/cauchy_encoder.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1724" topLine="270" />
+			<Cursor1 position="2851" topLine="213" />
 		</Cursor>
 		<Folding>
 			<Collapse line="0" />
@@ -90,7 +95,6 @@
 			<Collapse line="544" />
 			<Collapse line="549" />
 			<Collapse line="551" />
-			<Collapse line="573" />
 			<Collapse line="603" />
 			<Collapse line="607" />
 			<Collapse line="615" />
@@ -105,10 +109,5 @@
 			<Collapse line="696" />
 			<Collapse line="705" />
 		</Folding>
-	</File>
-	<File name="../jerasure/jerasure.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5037" topLine="188" />
-		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

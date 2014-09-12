@@ -584,8 +584,8 @@ int main (int argc, char **argv)
     free(s2);
     free(s1);
     free(fname);
-//    free(data);
-//    free(coding);
+    free(data);
+    free(coding);
     free(block);
     free(curdir);
 

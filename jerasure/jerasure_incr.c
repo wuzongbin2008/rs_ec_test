@@ -1419,6 +1419,23 @@ void jerasure_get_stats(double *fill_in)
     jerasure_total_memcpy_bytes = 0;
 }
 
+void jerasure_schedule_encode(int k, int m, int w, int **schedule,
+                              char **data_ptrs, char **coding_ptrs, int size, int packetsize,int disk_no)
+{
+    char **ptr_copy;
+    int i, j, tdone;
+
+    ptr_copy = talloc(char *, (k+m));
+    for (i = disk_no; i < k; i++) ptr_copy[i] = data_ptrs[i];
+    for (i = disk_no; i < m; i++) ptr_copy[i+k] = coding_ptrs[i];
+    for (tdone = 0; tdone < size; tdone += packetsize*w)
+    {
+        jerasure_do_scheduled_operations(ptr_copy, schedule, packetsize);
+        for (i = disk_no; i < k+m; i++) ptr_copy[i] += (packetsize*w);
+    }
+    free(ptr_copy);
+}
+
 void jerasure_do_scheduled_operations(char **ptrs, int **operations, int packetsize)
 {
     char *sptr;
@@ -1440,23 +1457,6 @@ void jerasure_do_scheduled_operations(char **ptrs, int **operations, int packets
             jerasure_total_memcpy_bytes += packetsize;
         }
     }
-}
-
-void jerasure_schedule_encode(int k, int m, int w, int **schedule,
-                              char **data_ptrs, char **coding_ptrs, int size, int packetsize)
-{
-    char **ptr_copy;
-    int i, j, tdone;
-
-    ptr_copy = talloc(char *, (k+m));
-    for (i = 0; i < k; i++) ptr_copy[i] = data_ptrs[i];
-    for (i = 0; i < m; i++) ptr_copy[i+k] = coding_ptrs[i];
-    for (tdone = 0; tdone < size; tdone += packetsize*w)
-    {
-        jerasure_do_scheduled_operations(ptr_copy, schedule, packetsize);
-        for (i = 0; i < k+m; i++) ptr_copy[i] += (packetsize*w);
-    }
-    free(ptr_copy);
 }
 
 int **jerasure_dumb_bitmatrix_to_schedule(int k, int m, int w, int *bitmatrix)

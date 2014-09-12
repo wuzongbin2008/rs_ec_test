@@ -83,7 +83,6 @@ int jfread(void *ptr, int size, int nmembers, FILE *stream)
     return size;
 }
 
-
 int main (int argc, char **argv)
 {
     FILE *fp, *fp2,*m2_fp;				    // file pointers
@@ -97,7 +96,7 @@ int main (int argc, char **argv)
     int buffersize;					// paramter
     int i, j;						// loop control variables
     int blocksize;					// size of k+m files
-    int total,disk_no,init;
+    int total,disk_no,init,idx;
     int extra;
 
     /* Jerasure Arguments */
@@ -131,7 +130,7 @@ int main (int argc, char **argv)
     /* Start timing */
     gettimeofday(&t1, &tz);
     totalsec = 0.0;
-    //matrix = NULL;
+    matrix = NULL;
     bitmatrix = NULL;
     schedule = NULL;
 
@@ -157,7 +156,7 @@ int main (int argc, char **argv)
         fprintf(stderr,  "Invalid value for m\n");
         exit(0);
     }
-    if (sscanf(argv[5],"%d", &w) == 0 || w <= 0)
+    if (sscanf(argv[5], "%d", &w) == 0 || w <= 0)
     {
         fprintf(stderr,  "Invalid value for w.\n");
         exit(0);
@@ -629,22 +628,23 @@ int main (int argc, char **argv)
             //jerasure_matrix_encode(k, m, w, matrix, data, coding, blocksize);
             break;
         case Reed_Sol_R6_Op:
-            reed_sol_r6_encode(k, w, data, coding, blocksize);
+            //reed_sol_r6_encode(k, w, data, coding, blocksize);
             break;
         case Cauchy_Orig:
-            jerasure_schedule_encode(k, m, w, schedule, data, coding, blocksize, packetsize);
+            //jerasure_schedule_encode(k, m, w, schedule, data, coding, blocksize, packetsize);
             break;
         case Cauchy_Good:
-            jerasure_schedule_encode(k, m, w, schedule, data, coding, blocksize, packetsize);
+            idx = 0;//disk_no - 1;
+            jerasure_schedule_encode(k, m, w, schedule, data, coding, blocksize, packetsize,idx);
             break;
         case Liberation:
-            jerasure_schedule_encode(k, m, w, schedule, data, coding, blocksize, packetsize);
+            //jerasure_schedule_encode(k, m, w, schedule, data, coding, blocksize, packetsize);
             break;
         case Blaum_Roth:
-            jerasure_schedule_encode(k, m, w, schedule, data, coding, blocksize, packetsize);
+            //jerasure_schedule_encode(k, m, w, schedule, data, coding, blocksize, packetsize);
             break;
         case Liber8tion:
-            jerasure_schedule_encode(k, m, w, schedule, data, coding, blocksize, packetsize);
+            //jerasure_schedule_encode(k, m, w, schedule, data, coding, blocksize, packetsize);
             break;
         }
         gettimeofday(&t4, &tz);
@@ -737,8 +737,8 @@ int main (int argc, char **argv)
     free(s2);
     free(s1);
     free(fname);
-//    free(data);
-//    free(coding);
+    free(data);
+    free(coding);
     free(block);
     free(curdir);
 

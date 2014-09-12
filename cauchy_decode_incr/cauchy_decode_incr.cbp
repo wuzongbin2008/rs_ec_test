@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="cauchy_decoder" />
+		<Option title="cauchy_decode_incr" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/cauchy_decoder" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/cauchy_decode_incr" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -16,7 +16,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/cauchy_decoder" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/cauchy_decode_incr" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -35,17 +35,17 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../jerasure/cauchy.h" />
-		<Unit filename="../jerasure/cauchy_decoder.c">
+		<Unit filename="../jerasure/cauchy_decoder_incr.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../jerasure/galois.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../jerasure/galois.h" />
-		<Unit filename="../jerasure/jerasure.c">
+		<Unit filename="../jerasure/jerasure_incr.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../jerasure/jerasure.h" />
+		<Unit filename="../jerasure/jerasure_incr.h" />
 		<Unit filename="../jerasure/liberation.c">
 			<Option compilerVar="CC" />
 		</Unit>
